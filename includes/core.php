@@ -34,9 +34,9 @@ function setup() {
  * @return void
  */
 function i18n() {
-	$locale = apply_filters( 'plugin_locale', get_locale(), 'paddlepress' );
-	load_textdomain( 'paddlepress', WP_LANG_DIR . '/paddlepress/paddlepress-' . $locale . '.mo' );
-	load_plugin_textdomain( 'paddlepress', false, plugin_basename( PADDLEPRESS_PATH ) . '/languages/' );
+	$locale = apply_filters( 'plugin_locale', get_locale(), 'handyplugins-paddlepress' );
+	load_textdomain( 'handyplugins-paddlepress', WP_LANG_DIR . '/paddlepress/paddlepress-' . $locale . '.mo' );
+	load_plugin_textdomain( 'handyplugins-paddlepress', false, plugin_basename( PADDLEPRESS_PATH ) . '/languages/' );
 }
 
 /**

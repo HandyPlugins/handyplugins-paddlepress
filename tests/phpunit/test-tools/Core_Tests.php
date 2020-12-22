@@ -48,10 +48,10 @@ class Core_Tests extends Base\TestCase {
 			'args' => array(),
 			'return' => 'en_US',
 		) );
-		\WP_Mock::onFilter( 'plugin_locale' )->with( 'en_US', 'paddlepress' )->reply( 'en_US' );
+		\WP_Mock::onFilter( 'plugin_locale' )->with( 'en_US', 'handyplugins-paddlepress' )->reply( 'en_US' );
 		\WP_Mock::userFunction( 'load_textdomain', array(
 			'times' => 1,
-			'args' => array( 'paddlepress', 'lang_dir/paddlepress/paddlepress-en_US.mo' ),
+			'args' => array( 'handyplugins-paddlepress', 'lang_dir/paddlepress/paddlepress-en_US.mo' ),
 		) );
 		\WP_Mock::userFunction( 'plugin_basename', array(
 			'times' => 1,
@@ -60,7 +60,7 @@ class Core_Tests extends Base\TestCase {
 		) );
 		\WP_Mock::userFunction( 'load_plugin_textdomain', array(
 			'times' => 1,
-			'args' => array( 'paddlepress', false, 'path/languages/' ),
+			'args' => array( 'handyplugins-paddlepress', false, 'path/languages/' ),
 		) );
 
 		// Act

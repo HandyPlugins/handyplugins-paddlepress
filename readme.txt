@@ -1,4 +1,4 @@
-=== PaddlePress ===
+=== HandyPlugins PaddlePress ===
 Contributors: handyplugins, m_uysl
 Tags: paddle, paddlepress, payment, software-licensing, membership
 Requires at least: 5.0
@@ -12,13 +12,13 @@ Easily accept credit card payments on your WordPress site using Paddle.
 
 == Description ==
 
-PaddlePress is a standalone payments plugin that connects Paddle with WordPress. Simply set up a Paddle account and start accepting credit cards on your WordPress site.
+HandyPlugins PaddlePress is a standalone payments plugin that connects Paddle with WordPress. Simply set up a Paddle account and start accepting credit cards on your WordPress site.
 
 __Plugin Website__: [https://handyplugins.co/paddlepress-pro/](https://handyplugins.co/paddlepress-pro/)
 
-= PaddlePress PRO Features =
+= HandyPlugins PaddlePress PRO Features =
 
-PaddlePress PRO provides additional functionalities to integrate Paddle with WordPress. PRO features:
+HandyPlugins PaddlePress PRO provides additional functionalities to integrate Paddle with WordPress. PRO features:
 
 - Customer Dashboard: Let your members easily view and manage their account details.
 - Membership Levels: Create an unlimited number of membership packages and map with your Paddle products or plans.
@@ -28,13 +28,13 @@ PaddlePress PRO provides additional functionalities to integrate Paddle with Wor
 - Subscription Upgrades and Downgrades: Customers can move between subscription levels and only pay the difference.
 - Emails: Send welcome emails to new members, email payment receipts, and remind members before their account expires automatically.
 
-By upgrading to PaddlePress PRO you also get access to one-on-one help from our knowledgeable support team and our extensive documentation site.
+By upgrading to HandyPlugins PaddlePress PRO you also get access to one-on-one help from our knowledgeable support team and our extensive documentation site.
 
-== WHO IS PADDLEPRESS PRO FOR? ==
+== WHO IS HANDYPLUGINS PADDLEPRESS PRO FOR? ==
 
 - Website owners who want to sell "members-only" digital content or provide SaaS functionality on their WordPress website. [Learn how to do that](https://handyplugins.co/paddlepress-pro/docs/how-to-set-up-a-membership-website/)
 - WordPress developers who want to sell WordPress [plugins](https://handyplugins.co/paddlepress-pro/docs/updater-implementation-for-wordpress-plugins/) or [themes](https://handyplugins.co/paddlepress-pro/docs/updater-implementation-for-wordpress-themes/).
-[Checkout](https://handyplugins.co/paddlepress-pro/docs/release-a-new-wordpress-product/) how easy to manage releases with PaddlePress Pro.
+[Checkout](https://handyplugins.co/paddlepress-pro/docs/release-a-new-wordpress-product/) how easy to manage releases with HandyPlugins PaddlePress Pro.
 
 
 = Contributing & Bug Report =
@@ -47,8 +47,8 @@ Our documentation can be found on [https://handyplugins.co/paddlepress-pro/docs/
 
 = Manual Installation =
 
-1. Upload the entire `/paddlepress` directory to the `/wp-content/plugins/` directory.
-2. Activate PaddlePress through the 'Plugins' menu in WordPress.
+1. Upload the entire `/handyplugins-paddlepress` directory to the `/wp-content/plugins/` directory.
+2. Activate HandyPlugins PaddlePress through the 'Plugins' menu in WordPress.
 
 == Frequently Asked Questions ==
 

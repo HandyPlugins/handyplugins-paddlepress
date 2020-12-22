@@ -1,7 +1,7 @@
 {
-  "name": "paddlepress",
+  "name": "handyplugins-paddlepress",
   "version": "1.0.0",
-  "description": "WordPress plugin for Paddle",
+  "description": "WordPress plugin for Paddle Integration",
   "author": {
     "name": "handyplugins",
     "email": "support@handyplugins.co",
@@ -23,7 +23,7 @@
     "format-js": "eslint --fix assets/js",
     "lint": "npm run lint-css && npm run lint-js && npm run lint-php",
     "format": "npm run format-js",
-    "make-pot": "wp-pot --src 'includes/*.php' 'plugin.php' 'assets' --dest-file 'languages/paddlepress.pot' --domain 'paddlepress'"
+    "make-pot": "wp-pot --src 'includes/*.php' 'plugin.php' 'assets' --dest-file 'languages/paddlepress.pot' --domain 'handyplugins-paddlepress'"
   },
   "husky": {
     "hooks": {

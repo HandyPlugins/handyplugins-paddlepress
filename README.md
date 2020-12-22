@@ -1,4 +1,4 @@
-# [PaddlePress](https://wordpress.org/plugins/search/paddlepress/) #
+# [HandyPlugins PaddlePress](https://wordpress.org/plugins/handyplugins-paddlepress/) #
 
 ### Welcome to our GitHub Repository
 

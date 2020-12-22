@@ -17,7 +17,7 @@ function setup() {
 		return __NAMESPACE__ . "\\$function";
 	};
 
-	add_shortcode( 'paddlepress', $n( 'paddlepress_shortcode' ) );
+	add_shortcode( 'handyplugins-paddlepress', $n( 'paddlepress_shortcode' ) );
 }
 
 /**
@@ -31,7 +31,7 @@ function paddlepress_shortcode( $atts ) {
 	$atts = wp_parse_args(
 		$atts,
 		[
-			'label'      => esc_html__( 'Buy Now!', 'paddlepress' ),
+			'label'      => esc_html__( 'Buy Now!', 'handyplugins-paddlepress' ),
 			'product_id' => 0,
 		]
 	);

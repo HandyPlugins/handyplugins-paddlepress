@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name:       PaddlePress
+ * Plugin Name:       HandyPlugins PaddlePress
  * Plugin URI:        https://handyplugins.co/paddlepress-pro/
- * Description:       PaddlePress is a standalone payments plugin that connects Paddle with WordPress.
+ * Description:       HandyPlugins PaddlePress is a standalone payments plugin that connects Paddle with WordPress.
  * Version:           1.0
  * Requires at least: 5.0
  * Requires PHP:      5.6
@@ -10,7 +10,7 @@
  * Author URI:        https://handyplugins.co/
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       paddlepress
+ * Text Domain:       handyplugins-paddlepress
  * Domain Path:       /languages
  *
  * @package           PaddlePress

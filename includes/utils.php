@@ -29,7 +29,7 @@ function get_settings() {
 			'skip_account_creation_on_mismatch' => true,
 			'enable_software_licensing'         => false,
 			'ignore_local_host_url'             => true,
-			'restriction_message'               => esc_html__( 'You cannot see this content.', 'paddlepress' ),
+			'restriction_message'               => esc_html__( 'You cannot see this content.', 'handyplugins-paddlepress' ),
 		]
 	);
 

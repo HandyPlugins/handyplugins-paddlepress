@@ -152,11 +152,11 @@ function get_paddle_product_names() {
  */
 function payment_statuses() {
 	$statuses = [
-		'active'    => esc_html__( 'Active', 'paddlepress' ),
-		'trialing'  => esc_html__( 'Trial', 'paddlepress' ),
-		'past_due'  => esc_html__( 'Past Due', 'paddlepress' ),
-		'paused'    => esc_html__( 'Paused', 'paddlepress' ),
-		'cancelled' => esc_html__( 'Cancelled', 'paddlepress' ), // deleted in API response
+		'active'    => esc_html__( 'Active', 'handyplugins-paddlepress' ),
+		'trialing'  => esc_html__( 'Trial', 'handyplugins-paddlepress' ),
+		'past_due'  => esc_html__( 'Past Due', 'handyplugins-paddlepress' ),
+		'paused'    => esc_html__( 'Paused', 'handyplugins-paddlepress' ),
+		'cancelled' => esc_html__( 'Cancelled', 'handyplugins-paddlepress' ), // deleted in API response
 	];
 
 	return apply_filters( 'paddlepress_payment_statuses', $statuses );
@@ -198,5 +198,5 @@ function verifiy_paddle_signature() {
 		return true;
 	}
 
-	return new WP_Error( 'signature_err', esc_html__( 'Problem with request', 'paddlepress' ) );
+	return new WP_Error( 'signature_err', esc_html__( 'Problem with request', 'handyplugins-paddlepress' ) );
 }
