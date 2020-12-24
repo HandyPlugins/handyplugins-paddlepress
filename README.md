@@ -11,5 +11,5 @@ More information can be found at [handyplugins.co](https://handyplugins.co/paddl
 For detailed setup instructions, visit the official [Documentation](https://handyplugins.co/paddlepress-pro/docs/) page.
 
 ## Support ##
-This is a developer's portal for PaddlePress and should _not_ be used for support. Please visit the [support forums](https://wordpress.org/support/plugin/paddlepress/) if you need to submit a support request.
+This is a developer's portal for PaddlePress and should _not_ be used for support. Please visit the [support forums](https://wordpress.org/support/plugin/handyplugins-paddlepress/) if you need to submit a support request.
 
