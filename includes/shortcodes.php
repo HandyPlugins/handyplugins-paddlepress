@@ -38,12 +38,19 @@ function paddlepress_shortcode( $atts ) {
 
 	$passthrough = '';
 	if ( is_user_logged_in() ) {
-		$passthrough = 'data-passthrough="' . get_current_user_id() . '"';
+		$passthrough = 'data-passthrough="' . absint( get_current_user_id() ) . '"';
+	}
+
+	$email = '';
+	if ( is_user_logged_in() ) {
+		$current_user = wp_get_current_user();
+		$email        = 'data-email="' . esc_attr( $current_user->user_email ) . '"';
 	}
 
 	return sprintf(
-		'<a href="#!" class="paddle_button paddlepress-button" %s data-product="%d">%s</a>',
-		esc_attr( $passthrough ),
+		'<a href="#!" class="paddle_button paddlepress-button" %s %s data-product="%d">%s</a>',
+		$passthrough,
+		$email,
 		absint( $atts['product_id'] ),
 		esc_attr( $atts['label'] )
 	);
