@@ -17,7 +17,7 @@ function setup() {
 		return __NAMESPACE__ . "\\$function";
 	};
 
-	add_shortcode( 'handyplugins-paddlepress', $n( 'paddlepress_shortcode' ) );
+	add_shortcode( 'paddlepress', $n( 'paddlepress_shortcode' ) );
 }
 
 /**
