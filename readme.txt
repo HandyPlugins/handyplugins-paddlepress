@@ -2,9 +2,9 @@
 Contributors: handyplugins, m_uysl
 Tags: paddle, paddlepress, payment, software-licensing, membership
 Requires at least: 5.0
-Tested up to: 5.6
+Tested up to: 5.7
 Requires PHP: 5.6
-Stable tag: 1.0
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,10 @@ Please read the [Paddle's AUP](https://paddle.com/support/aup/) guide.
 
 Absolutely. You just need to setup a coupon code in your Paddle dashboard.
 
+= How can I test Paddle? =
+
+You can test the integration by using [Paddle Sandbox](https://developer.paddle.com/getting-started/sandbox)
+
 == Screenshots ==
 
 1. Plugin Settings
@@ -75,6 +79,11 @@ Absolutely. You just need to setup a coupon code in your Paddle dashboard.
 3. Paddle Subscription Plans
 
 == Changelog ==
+
+= 1.1 =
+* Settings UI improvements
+* Added: Paddle Sandbox support.
+* Fix: Shortcode. Pass user_id and email to Paddle, for logged-in users.
 
 = 1.0 =
 * First release
