@@ -103,6 +103,11 @@ function scripts() {
 
 	$paddle_script = 'Paddle.Setup({ vendor: ' . esc_attr( $settings['paddle_vendor_id'] ) . ' });';
 
+	if ( $settings['is_sandbox'] ) {
+		$paddle_script = "Paddle.Environment.set('sandbox');";
+		$paddle_script .= 'Paddle.Setup({ vendor: ' . esc_attr( $settings['sandbox_paddle_vendor_id'] ) . ' });';
+	}
+
 	wp_enqueue_script( 'paddlepress-paddle', 'https://cdn.paddle.com/paddle/paddle.js', [], null, true ); // phpcs:ignore
 	wp_add_inline_script( 'paddlepress-paddle', $paddle_script );
 }

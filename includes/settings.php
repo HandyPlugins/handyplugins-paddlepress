@@ -27,8 +27,6 @@ function setup() {
 	add_action( 'admin_menu', $n( 'admin_menu' ) );
 	// save settings
 	add_action( 'admin_init', $n( 'save_settings' ) );
-	add_action( 'admin_post_paddlepress_clear_transients', $n( 'purge_cache' ) );
-
 }
 
 /**
@@ -79,8 +77,9 @@ function admin_menu() {
  * Main settings page of the plugin
  */
 function settings_page() {
-	$settings    = Utils\get_settings();
-	$license_key = Utils\get_license_key();
+	$settings        = Utils\get_settings();
+	$license_key     = Utils\get_license_key();
+	$current_section = isset( $_REQUEST['current_section'] ) ? esc_attr( $_REQUEST['current_section'] ) : '#pp-settings-paddle'; // // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 
 	?>
 	<div class="wrap">
@@ -90,12 +89,14 @@ function settings_page() {
 			<?php
 			wp_nonce_field( 'paddlepress_settings', 'paddlepress_settings' );
 			?>
+			<input type="hidden" id="current_section" name="current_section" value="<?php esc_attr( $current_section ); ?>" />
 			<div id="pp-setting-tabs">
 				<div class="nav-tab-wrapper">
 					<ul>
-						<li><a href="#pp-settings-paddle" class="pp-setting-tab nav-tab nav-tab-active"><?php esc_html_e( 'Paddle Details', 'handyplugins-paddlepress' ); ?></a></li>
-						<li><a href="#pp-settings-preferences" class="pp-setting-tab nav-tab"><?php esc_html_e( 'Preferences', 'handyplugins-paddlepress' ); ?></a></li>
-						<li><a href="#pp-settings-upgrade" class="pp-setting-tab nav-tab"><?php esc_html_e( 'Upgrade', 'handyplugins-paddlepress' ); ?></a></li>
+						<li><a href="#pp-settings-paddle" class="pp-setting-tab nav-tab <?php echo( '#pp-settings-paddle' === $current_section ? 'nav-tab-active' : '' ); ?>"><?php esc_html_e( 'Paddle Details', 'handyplugins-paddlepress' ); ?></a></li>
+						<li><a href="#pp-settings-sandbox" class="pp-setting-tab nav-tab <?php echo( '#pp-settings-sandbox' === $current_section ? 'nav-tab-active' : '' ); ?>"><?php esc_html_e( 'Sandbox', 'handyplugins-paddlepress' ); ?></a></li>
+						<li><a href="#pp-settings-preferences" class="pp-setting-tab nav-tab <?php echo( '#pp-settings-preferences' === $current_section ? 'nav-tab-active' : '' ); ?>"><?php esc_html_e( 'Preferences', 'handyplugins-paddlepress' ); ?></a></li>
+						<li><a href="#pp-settings-upgrade" class="pp-setting-tab nav-tab <?php echo( '#pp-settings-upgrade' === $current_section ? 'nav-tab-active' : '' ); ?>"><?php esc_html_e( 'Upgrade', 'handyplugins-paddlepress' ); ?></a></li>
 					</ul>
 				</div>
 				<div id="pp-settings-paddle">
@@ -118,14 +119,43 @@ function settings_page() {
 						<tr>
 							<th scope="row"></th>
 							<td>
-								<?php
-								$url = wp_nonce_url( admin_url( 'admin-post.php?action=paddlepress_clear_transients' ), 'paddlepress_clear_transients' );
-								printf(
-									'<a href="%s" class="button">%s</a>',
-									esc_url_raw( $url ),
-									esc_html__( 'Clear Cache', 'handyplugins-paddlepress' )
-								)
-								?>
+								<button role="button" value="clear_cache" name="clear_api_cache" class="button"><?php esc_html_e( 'Clear Cache', 'handyplugins-paddlepress' ); ?></button>
+								<p class="description"><?php esc_html_e( 'API responses are cached for 15 minutes, if you want to see the products or subscriptions immediately after adding them to paddle, you can purge the cache.', 'handyplugins-paddlepress' ); ?></p>
+							</td>
+						</tr>
+
+					</table>
+				</div>
+				<div id="pp-settings-sandbox">
+					<table class="form-table">
+						<tr>
+							<th scope="row"><label for="is_sandbox"><?php esc_html_e( 'Sandbox', 'handyplugins-paddlepress' ); ?></label></th>
+							<td>
+								<label>
+									<input type="checkbox" <?php checked( $settings['is_sandbox'], 1 ); ?> id="is_sandbox" name="is_sandbox" value="1">
+									<?php esc_html_e( 'Enable sandbox mode for testing integration.', 'handyplugins-paddlepress' ); ?>
+								</label>
+								<p class="description"><?php esc_html_e( 'Test your site before going live.', 'handyplugins-paddlepress' ); ?></p>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="sandbox_paddle_vendor_id"><?php esc_html_e( 'Vendor ID', 'handyplugins-paddlepress' ); ?></label></th>
+							<td>
+								<input type="text" id="sandbox_paddle_vendor_id" name="sandbox_paddle_vendor_id" value="<?php echo esc_attr( $settings ? $settings['sandbox_paddle_vendor_id'] : '' ); ?>">
+								<p class="description"><?php esc_html_e( 'Enter your Paddle Vendor ID. It can be found in Developer Tools > Authentication on Paddle dashboard', 'handyplugins-paddlepress' ); ?></p>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="sandbox_paddle_auth_code"><?php esc_html_e( 'Auth Code', 'handyplugins-paddlepress' ); ?></label></th>
+							<td>
+								<input type="text" size="60" id="sandbox_paddle_auth_code" name="sandbox_paddle_auth_code" value="<?php echo esc_attr( $settings ? $settings['sandbox_paddle_auth_code'] : '' ); ?>">
+								<p class="description"><?php esc_html_e( 'Enter your Paddle Auth code. You can create a new one from Developer Tools > Authentication on Paddle dashboard.', 'handyplugins-paddlepress' ); ?></p>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"></th>
+							<td>
+								<button role="button" value="clear_cache" name="clear_api_cache" class="button"><?php esc_html_e( 'Clear Cache', 'handyplugins-paddlepress' ); ?></button>
 								<p class="description"><?php esc_html_e( 'API responses are cached for 15 minutes, if you want to see the products or subscriptions immediately after adding them to paddle, you can purge the cache.', 'handyplugins-paddlepress' ); ?></p>
 							</td>
 						</tr>
@@ -352,7 +382,7 @@ function products_page() {
 
 						<td class="product-name column-title column-primary page-title vertical-align-middle" data-colname="product-name">
 							<strong>
-								<a href="<?php echo 'https://buy.paddle.com/product/' . absint( $product['id'] ); ?>"><?php echo esc_attr( $product['name'] ); ?></a>
+								<a href="<?php echo esc_url( Paddle\purchase_url( absint( $product['id'] ) ) ); ?>"><?php echo esc_attr( $product['name'] ); ?></a>
 							</strong>
 						</td>
 
@@ -412,7 +442,7 @@ function plans_page() {
 
 						<td class="product-name column-title column-primary page-title vertical-align-middle" data-colname="product-name">
 							<strong>
-								<a href="<?php echo 'https://buy.paddle.com/product/' . absint( $plan['id'] ); ?>"><?php echo esc_attr( $plan['name'] ); ?></a>
+								<a href="<?php echo esc_url( Paddle\purchase_url( absint( $plan['id'] ) ) ); ?>"><?php echo esc_attr( $plan['name'] ); ?></a>
 							</strong>
 						</td>
 
@@ -460,10 +490,24 @@ function save_settings() {
 	$nonce = filter_input( INPUT_POST, 'paddlepress_settings', FILTER_SANITIZE_STRING );
 
 	if ( wp_verify_nonce( $nonce, 'paddlepress_settings' ) ) {
+
+		if ( isset( $_POST['clear_api_cache'] ) ) {
+			purge_cache();
+			add_settings_error( 'paddlepress', 'paddlepress', esc_html__( 'Cached data has been cleared!', 'paddlepress' ), 'success' );
+
+			return;
+		}
+
 		$settings['plugin_version']                    = PADDLEPRESS_VERSION;
 		$settings['paddle_vendor_id']                  = sanitize_text_field( filter_input( INPUT_POST, 'paddle_vendor_id' ) );
 		$settings['paddle_auth_code']                  = sanitize_text_field( filter_input( INPUT_POST, 'paddle_auth_code' ) );
 		$settings['paddle_public_key']                 = sanitize_textarea_field( filter_input( INPUT_POST, 'paddle_public_key' ) );
+		$settings['is_sandbox']                        = (bool) filter_input( INPUT_POST, 'is_sandbox' );
+		$settings['enable_logging']                    = (bool) filter_input( INPUT_POST, 'enable_logging' );
+		$settings['max_log_count']                     = absint( filter_input( INPUT_POST, 'max_log_count' ) );
+		$settings['sandbox_paddle_vendor_id']          = sanitize_text_field( filter_input( INPUT_POST, 'sandbox_paddle_vendor_id' ) );
+		$settings['sandbox_paddle_auth_code']          = sanitize_text_field( filter_input( INPUT_POST, 'sandbox_paddle_auth_code' ) );
+		$settings['sandbox_paddle_public_key']         = sanitize_textarea_field( filter_input( INPUT_POST, 'sandbox_paddle_public_key' ) );
 		$settings['enable_software_licensing']         = (bool) filter_input( INPUT_POST, 'enable_software_licensing' );
 		$settings['ignore_local_host_url']             = (bool) filter_input( INPUT_POST, 'ignore_local_host_url' );
 		$settings['refund_membership_cancellation']    = (bool) filter_input( INPUT_POST, 'refund_membership_cancellation' );
@@ -486,13 +530,8 @@ function save_settings() {
  * Purges transients cache for the API responses
  */
 function purge_cache() {
-	if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'paddlepress_clear_transients' ) ) {
-		wp_nonce_ays( '' );
-	}
-
 	delete_transient( 'paddlepress_paddle_products' );
+	delete_transient( 'paddlepress_paddle_products_sandbox' );
 	delete_transient( 'paddlepress_paddle_subscriptions' );
-
-	wp_safe_redirect( esc_url_raw( add_query_arg( 'cache-cleared', true, wp_get_referer() ) ) );
-	exit;
+	delete_transient( 'paddlepress_paddle_subscriptions_sandbox' );
 }

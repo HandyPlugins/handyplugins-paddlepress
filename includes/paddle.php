@@ -11,30 +11,62 @@ use PaddlePress\Utils;
 use \WP_Error as WP_Error;
 
 /**
+ * Make API call to Paddle
+ *
+ * @param string $endpoint path of the endpoint
+ * @param array  $args     request parameters
+ *
+ * @return array|WP_Error The response of the request
+ * @since 1.1
+ */
+function api_request( $endpoint, $args ) {
+	$settings         = Utils\get_settings();
+	$vendor_id        = $settings['paddle_vendor_id'];
+	$vendor_auth_code = $settings['paddle_auth_code'];
+
+	$base_url = 'https://vendors.paddle.com/api/2.0/';
+
+	if ( $settings['is_sandbox'] ) {
+		$base_url         = 'https://sandbox-vendors.paddle.com/api/2.0/';
+		$vendor_id        = $settings['sandbox_paddle_vendor_id'];
+		$vendor_auth_code = $settings['sandbox_paddle_auth_code'];
+	}
+
+	$existing_body = isset( $args['body'] ) ? (array) $args['body'] : [];
+
+	// add auth parameters
+	$default_body = [
+		'vendor_id'        => $vendor_id,
+		'vendor_auth_code' => $vendor_auth_code,
+	];
+
+	$args['body'] = array_merge( $existing_body, $default_body );
+
+	$url = $base_url . $endpoint;
+
+	return wp_remote_post( $url, $args );
+}
+
+/**
  * Get products from Paddle
  *
  * @return mixed
  * @since 1.0
  */
 function get_products() {
-	$endpoint = 'https://vendors.paddle.com/api/2.0/product/get_products';
-
+	$settings  = Utils\get_settings();
 	$cache_key = 'paddlepress_paddle_products';
-	$products  = get_transient( $cache_key );
+
+	if ( $settings['is_sandbox'] ) {
+		$cache_key .= '_sandbox';
+	}
+
+	$products = get_transient( $cache_key );
 	if ( $products ) {
 		return $products;
 	}
 
-	$settings = Utils\get_settings();
-
-	$request_args = [
-		'body' => [
-			'vendor_id'        => $settings['paddle_vendor_id'],
-			'vendor_auth_code' => $settings['paddle_auth_code'],
-		],
-	];
-
-	$request  = wp_remote_post( $endpoint, $request_args );
+	$request  = api_request( 'product/get_products', [] );
 	$response = wp_remote_retrieve_body( $request );
 	if ( $response ) {
 		$products = json_decode( $response, true );
@@ -44,6 +76,7 @@ function get_products() {
 	}
 }
 
+
 /**
  * Get subscription plans
  *
@@ -51,24 +84,19 @@ function get_products() {
  * @since 1.0
  */
 function get_subscription_plans() {
-	$endpoint = 'https://vendors.paddle.com/api/2.0/subscription/plans';
-
+	$settings  = Utils\get_settings();
 	$cache_key = 'paddlepress_paddle_subscriptions';
-	$products  = get_transient( $cache_key );
+
+	if ( $settings['is_sandbox'] ) {
+		$cache_key .= '_sandbox';
+	}
+
+	$products = get_transient( $cache_key );
 	if ( $products ) {
 		return $products;
 	}
 
-	$settings = Utils\get_settings();
-
-	$request_args = [
-		'body' => [
-			'vendor_id'        => $settings['paddle_vendor_id'],
-			'vendor_auth_code' => $settings['paddle_auth_code'],
-		],
-	];
-
-	$request  = wp_remote_post( $endpoint, $request_args );
+	$request  = api_request( 'subscription/plans', [] );
 	$response = wp_remote_retrieve_body( $request );
 	if ( $response ) {
 		$products = json_decode( $response, true );
@@ -88,24 +116,26 @@ function get_subscription_plans() {
  * @since 1.0
  */
 function change_plan( $subscription_id, $plan_id ) {
+	// dont make live request on dev mode
 	if ( defined( 'PADDLEPRESS_TEST' ) && true === PADDLEPRESS_TEST ) {
 		return true;
 	}
 
-	$endpoint = 'https://vendors.paddle.com/api/2.0/subscription/users/update';
-	$settings = Utils\get_settings();
-
 	$args = [
-		'vendor_id'        => $settings['paddle_vendor_id'],
-		'vendor_auth_code' => $settings['paddle_auth_code'],
-		'subscription_id'  => $subscription_id,
-		'quantity'         => 1,
-		'plan_id'          => $plan_id,
+		'body' => [
+			'subscription_id' => $subscription_id,
+			'quantity'        => 1,
+			'plan_id'         => $plan_id,
+		],
+	];
+
+	$args['headers'] = [
+		'Content-Type' => 'application/x-www-form-urlencoded',
 	];
 
 	$request_args = apply_filters( 'paddlepress_change_plan_args', $args );
 
-	$request  = wp_remote_post( $endpoint, $request_args );
+	$request  = api_request( 'subscription/users/update', $request_args );
 	$response = wp_remote_retrieve_body( $request );
 
 	if ( $response ) {
@@ -114,7 +144,6 @@ function change_plan( $subscription_id, $plan_id ) {
 
 	return false;
 }
-
 
 /**
  * Get product id => name pair
@@ -160,4 +189,23 @@ function payment_statuses() {
 	];
 
 	return apply_filters( 'paddlepress_payment_statuses', $statuses );
+}
+
+/**
+ * Prep a purchase url for given paddle product
+ *
+ * @param int $product_id Paddle product or plan id
+ *
+ * @return string buy url
+ * @since 1.1
+ */
+function purchase_url( $product_id ) {
+	$settings = Utils\get_settings();
+
+	$url = sprintf( 'https://buy.paddle.com/product/%d', absint( $product_id ) );
+	if ( $settings['is_sandbox'] ) {
+		$url = sprintf( 'https://sandbox-buy.paddle.com/product/%d', absint( $product_id ) );
+	}
+
+	return $url;
 }

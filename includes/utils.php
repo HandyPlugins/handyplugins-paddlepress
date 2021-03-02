@@ -17,21 +17,28 @@ use const PaddlePress\Constants\SETTING_OPTION;
  * @return mixed|void
  */
 function get_settings() {
-	$settings = get_option(
-		SETTING_OPTION,
-		[
-			'plugin_version'                    => PADDLEPRESS_VERSION,
-			'paddle_vendor_id'                  => '',
-			'paddle_auth_code'                  => '',
-			'paddle_public_key'                 => '',
-			'refund_membership_cancellation'    => '1',
-			'self_service_plan_change'          => '1',
-			'skip_account_creation_on_mismatch' => true,
-			'enable_software_licensing'         => false,
-			'ignore_local_host_url'             => true,
-			'restriction_message'               => esc_html__( 'You cannot see this content.', 'handyplugins-paddlepress' ),
-		]
-	);
+	$defaults = [
+		'plugin_version'                    => PADDLEPRESS_VERSION,
+		'paddle_vendor_id'                  => '',
+		'paddle_auth_code'                  => '',
+		'paddle_public_key'                 => '',
+		'is_sandbox'                        => false,
+		'sandbox_paddle_vendor_id'          => '',
+		'sandbox_paddle_auth_code'          => '',
+		'sandbox_paddle_public_key'         => '',
+		'refund_membership_cancellation'    => '1',
+		'self_service_plan_change'          => '1',
+		'skip_account_creation_on_mismatch' => true,
+		'enable_software_licensing'         => false,
+		'ignore_local_host_url'             => true,
+		'restriction_message'               => esc_html__( 'You cannot see this content.', 'handyplugins-paddlepress' ),
+		'enable_logging'                    => false,
+		'max_log_count'                     => 20,
+	];
+
+	$settings = get_option( SETTING_OPTION, [] );
+
+	$settings = wp_parse_args( $settings, $defaults );
 
 	return $settings;
 }
