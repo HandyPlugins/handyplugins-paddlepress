@@ -38,7 +38,7 @@ By upgrading to HandyPlugins PaddlePress PRO you also get access to one-on-one h
 
 
 = Contributing & Bug Report =
-Bug reports and pull requests are welcome on [Github](https://github.com/HandyPlugins/paddlepress). Some of our features are pro only, please consider before sending PR.
+Bug reports and pull requests are welcome on [Github](https://github.com/HandyPlugins/handyplugins-paddlepress). Some of our features are pro only, please consider before sending PR.
 
 = Documentation =
 Our documentation can be found on [https://handyplugins.co/paddlepress-pro/docs/](https://handyplugins.co/paddlepress-pro/docs/)
