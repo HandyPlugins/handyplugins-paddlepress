@@ -1,10 +1,10 @@
-=== HandyPlugins PaddlePress ===
+=== HandyPlugins PaddlePress - Paddle Integration for WordPress ===
 Contributors: handyplugins, m_uysl
 Tags: paddle, paddlepress, payment, software-licensing, membership
 Requires at least: 5.0
 Tested up to: 5.8
 Requires PHP: 5.6
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,6 +29,8 @@ HandyPlugins PaddlePress PRO provides additional functionalities to integrate Pa
 - Emails: Send welcome emails to new members, email payment receipts, and remind members before their account expires automatically.
 
 By upgrading to HandyPlugins PaddlePress PRO you also get access to one-on-one help from our knowledgeable support team and our extensive documentation site.
+
+**[Learn more about PaddlePress Pro](https://handyplugins.co/paddlepress-pro/)**
 
 == WHO IS HANDYPLUGINS PADDLEPRESS PRO FOR? ==
 
@@ -79,6 +81,11 @@ You can test the integration by using [Paddle Sandbox](https://developer.paddle.
 3. Paddle Subscription Plans
 
 == Changelog ==
+
+= 1.2 =
+* tested with WP 5.8
+* New Hook: fire `paddlepress_plan_changed` on plan updates
+* Small tweaks
 
 = 1.1 =
 * Settings UI improvements
