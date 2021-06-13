@@ -38,5 +38,7 @@ tests
 config
 postcss.config.js
 yarn.lock
-vendor
+.wordpress-org
+.github
 LICENSE.md
+vendor
