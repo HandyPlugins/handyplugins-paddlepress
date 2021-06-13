@@ -139,6 +139,13 @@ function change_plan( $subscription_id, $plan_id ) {
 	$response = wp_remote_retrieve_body( $request );
 
 	if ( $response ) {
+		/**
+		 * Fire when plan has been changed
+		 *
+		 * @since 1.2
+		 */
+		do_action( 'paddlepress_plan_changed', $subscription_id, $plan_id, $request_args );
+
 		return json_decode( $response, true );
 	}
 
