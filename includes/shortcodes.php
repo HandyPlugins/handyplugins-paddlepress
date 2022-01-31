@@ -28,6 +28,8 @@ function setup() {
  * @return string
  */
 function paddlepress_shortcode( $atts ) {
+	$settings = \PaddlePress\Utils\get_settings();
+
 	$atts = wp_parse_args(
 		$atts,
 		[
@@ -47,10 +49,28 @@ function paddlepress_shortcode( $atts ) {
 		$email        = 'data-email="' . esc_attr( $current_user->user_email ) . '"';
 	}
 
+	$data_success     = '';
+	$data_success_url = '';
+
+	// first global setting
+	if ( ! empty( $settings['redirect_on_success'] ) ) {
+		$data_success_url = esc_url( $settings['redirect_on_success'] );
+	}
+
+	// shortcode atts can override the global setting
+	if ( ! empty( $atts['data-success'] ) ) {
+		$data_success_url = esc_url( $atts['data-success'] );
+	}
+
+	if ( ! empty( $data_success_url ) ) {
+		$data_success = 'data-success="' . esc_url( $data_success_url ) . '"';
+	}
+
 	return sprintf(
-		'<a href="#!" class="paddle_button paddlepress-button" %s %s data-product="%d">%s</a>',
+		'<a href="#!" class="paddle_button paddlepress-button" %s %s %s data-product="%d">%s</a>',
 		$passthrough,
 		$email,
+		$data_success,
 		absint( $atts['product_id'] ),
 		esc_attr( $atts['label'] )
 	);
