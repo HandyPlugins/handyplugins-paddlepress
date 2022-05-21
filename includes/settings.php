@@ -231,11 +231,11 @@ function settings_page() {
 							</tr>
 							<?php if ( current_user_can( 'unfiltered_html' ) ) : ?>
 								<tr>
-									<th scope="row"><label for="paddle_event_callback"><?php esc_html_e( 'Event Callback', 'paddlepress' ); ?></label></th>
+									<th scope="row"><label for="paddle_event_callback"><?php esc_html_e( 'Event Callback', 'handyplugins-paddlepress' ); ?></label></th>
 									<td>
 										<textarea id="paddle_event_callback" name="paddle_event_callback" cols="80" rows="10"><?php echo esc_html( $settings ? wp_unslash( $settings['paddle_event_callback'] ) : '' ); ?></textarea><br>
 										<br />
-										<span class="description"><?php esc_html_e( 'Enter eventCallback function. You can use it for measuring the conversion.', 'paddlepress' ); ?> <i><a href="https://developer.paddle.com/guides/ZG9jOjI1MzU0MDU3-measure-conversion" rel="noopener" target="_blank"><?php esc_html_e( 'Learn More', 'paddlepress' ); ?></a></i></span>
+										<span class="description"><?php esc_html_e( 'Enter eventCallback function. You can use it for measuring the conversion.', 'handyplugins-paddlepress' ); ?> <i><a href="https://developer.paddle.com/guides/ZG9jOjI1MzU0MDU3-measure-conversion" rel="noopener" target="_blank"><?php esc_html_e( 'Learn More', 'paddlepress' ); ?></a></i></span>
 									</td>
 								</tr>
 							<?php endif; ?>
@@ -503,7 +503,7 @@ function save_settings() {
 
 		if ( isset( $_POST['clear_api_cache'] ) ) {
 			purge_cache();
-			add_settings_error( 'paddlepress', 'paddlepress', esc_html__( 'Cached data has been cleared!', 'paddlepress' ), 'success' );
+			add_settings_error( 'paddlepress', 'paddlepress', esc_html__( 'Cached data has been cleared!', 'handyplugins-paddlepress' ), 'success' );
 
 			return;
 		}
