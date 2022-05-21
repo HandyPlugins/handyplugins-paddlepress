@@ -4,7 +4,7 @@ Tags: paddle, paddlepress, payment, software-licensing, membership
 Requires at least: 5.0
 Tested up to: 6.0
 Requires PHP: 5.6
-Stable tag: 1.3
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,16 @@ You can test the integration by using [Paddle Sandbox](https://developer.paddle.
 3. Paddle Subscription Plans
 
 == Changelog ==
+
+= 1.4 (May 21, 2022) =
+* Add event callback options.
+* Small tweaks & improvements.
+* Tested with WP 6.0
+
+= 1.3 =
+* tested with WP 6.0
+* `data-success` attribute added to shortcode for custom redirection upon completion of checkout.
+* Small tweaks.
 
 = 1.3 =
 * tested with WP 5.9
