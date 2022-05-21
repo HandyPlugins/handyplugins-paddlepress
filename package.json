@@ -10,36 +10,21 @@
   },
   "license": "GPL-2.0-or-later",
   "scripts": {
+    "start": "composer install && npm install --production=false && npm run build",
+    "watch": "10up-toolkit watch",
+    "build": "10up-toolkit build",
+    "format-js": "10up-toolkit format-js",
+    "lint-js": "10up-toolkit lint-js",
+    "lint-style": "10up-toolkit lint-style",
     "test": "phpunit",
-    "start": "composer install && npm install && npm run build",
-    "build": "cross-env NODE_ENV=production webpack --config config/webpack.config.prod.js",
-    "dev": "cross-env NODE_ENV=development webpack --config config/webpack.config.dev.js",
-    "watch": "cross-env NODE_ENV=development webpack --watch --config config/webpack.config.dev.js",
-    "build-release": "npm install && composer install --no-dev -o && npm run build",
+    "dev": "NODE_ENV=development webpack --config config/webpack.config.dev.js",
+    "build-release": "npm install --production=false  && composer install --no-dev -o && npm run make-pot && npm run build",
     "lint-release": "npm install && composer install && npm run lint",
     "lint-css": "stylelint assets/css",
-    "lint-js": "eslint assets/js",
     "lint-php": "composer run lint",
-    "format-js": "eslint --fix assets/js",
     "lint": "npm run lint-css && npm run lint-js && npm run lint-php",
     "format": "npm run format-js",
-    "make-pot": "wp-pot --src 'includes/*.php' 'plugin.php' 'assets' --dest-file 'languages/paddlepress.pot' --domain 'handyplugins-paddlepress'"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.css": [
-      "stylelint"
-    ],
-    "*.js": [
-      "eslint"
-    ],
-    "*.php": [
-      "./vendor/bin/phpcs --extensions=php --warning-severity=8 -s"
-    ]
+    "make-pot": "wp-pot -r  --src 'includes/**/*.php' 'plugin.php' 'assets' --dest-file 'languages/paddlepress.pot' --domain 'handyplugins-paddlepress'"
   },
   "repository": {
     "type": "git",
@@ -54,5 +39,12 @@
   },
   "dependencies": {
     "normalize.css": "^8.0.1"
+  },
+  "10up-toolkit": {
+    "entry": {
+      "admin": "./assets/js/admin/admin.js",
+      "admin-style": "./assets/css/admin/admin-style.css"
+    },
+    "wpDependencyExternals": false
   }
 }
