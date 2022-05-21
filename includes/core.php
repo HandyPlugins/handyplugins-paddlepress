@@ -101,12 +101,38 @@ function style_url( $stylesheet, $context ) {
 function scripts() {
 	$settings = Utils\get_settings();
 
-	$paddle_script = 'Paddle.Setup({ vendor: ' . esc_attr( $settings['paddle_vendor_id'] ) . ' });';
+	if ( empty( $settings['paddle_vendor_id'] ) && empty( $settings['sandbox_paddle_vendor_id'] ) ) {
+		return;
+	}
+
+	$event_callback = str_replace( 'eventCallback:', '', $settings['paddle_event_callback'] );
+	$event_callback = wp_unslash( $event_callback );
+
+	$paddle_script_data  = '{' . PHP_EOL;
+	$paddle_script_data .= 'vendor: ' . esc_attr( $settings['paddle_vendor_id'] ) . ( $event_callback ? ',' : '' ) . PHP_EOL;
+	if ( $event_callback ) {
+		$paddle_script_data .= 'eventCallback: ' . $event_callback . PHP_EOL;
+	}
+
+	$paddle_script_data .= '}';
+
+	$paddle_script = 'Paddle.Setup(' . $paddle_script_data . ');';
 
 	if ( $settings['is_sandbox'] ) {
-		$paddle_script = "Paddle.Environment.set('sandbox');";
-		$paddle_script .= 'Paddle.Setup({ vendor: ' . esc_attr( $settings['sandbox_paddle_vendor_id'] ) . ' });';
+		$paddle_script = "Paddle.Environment.set('sandbox');" . PHP_EOL;
+
+		$paddle_sandbox_script_data  = '{' . PHP_EOL;
+		$paddle_sandbox_script_data .= 'vendor: ' . esc_attr( $settings['sandbox_paddle_vendor_id'] ) . ( $event_callback ? ',' : '' ) . PHP_EOL;
+		if ( $event_callback ) {
+			$paddle_sandbox_script_data .= 'eventCallback: ' . $event_callback . PHP_EOL;
+		}
+
+		$paddle_sandbox_script_data .= '}';
+
+		$paddle_script .= 'Paddle.Setup(' . $paddle_sandbox_script_data . ');';
 	}
+
+	$paddle_script = apply_filters( 'paddlepress_paddle_script', $paddle_script );
 
 	wp_enqueue_script( 'paddlepress-paddle', 'https://cdn.paddle.com/paddle/paddle.js', [], null, true ); // phpcs:ignore
 	wp_add_inline_script( 'paddlepress-paddle', $paddle_script );

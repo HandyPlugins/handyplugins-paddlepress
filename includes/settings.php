@@ -229,6 +229,16 @@ function settings_page() {
 									<span class="description"><?php esc_html_e( 'Message displayed when a user does not have permission to view content.', 'handyplugins-paddlepress' ); ?></span>
 								</td>
 							</tr>
+							<?php if ( current_user_can( 'unfiltered_html' ) ) : ?>
+								<tr>
+									<th scope="row"><label for="paddle_event_callback"><?php esc_html_e( 'Event Callback', 'paddlepress' ); ?></label></th>
+									<td>
+										<textarea id="paddle_event_callback" name="paddle_event_callback" cols="80" rows="10"><?php echo esc_html( $settings ? wp_unslash( $settings['paddle_event_callback'] ) : '' ); ?></textarea><br>
+										<br />
+										<span class="description"><?php esc_html_e( 'Enter eventCallback function. You can use it for measuring the conversion.', 'paddlepress' ); ?> <i><a href="https://developer.paddle.com/guides/ZG9jOjI1MzU0MDU3-measure-conversion" rel="noopener" target="_blank"><?php esc_html_e( 'Learn More', 'paddlepress' ); ?></a></i></span>
+									</td>
+								</tr>
+							<?php endif; ?>
 						</table>
 					</fieldset>
 
@@ -514,6 +524,13 @@ function save_settings() {
 		$settings['skip_account_creation_on_mismatch'] = (bool) filter_input( INPUT_POST, 'skip_account_creation_on_mismatch' );
 		$settings['self_service_plan_change']          = (bool) filter_input( INPUT_POST, 'self_service_plan_change' );
 		$settings['restriction_message']               = sanitize_text_field( filter_input( INPUT_POST, 'restriction_message' ) );
+
+		if ( current_user_can( 'unfiltered_html' ) ) {
+			$settings['paddle_event_callback'] = filter_input( INPUT_POST, 'paddle_event_callback' );
+		} else {
+			$old_settings                      = get_option( SETTING_OPTION );
+			$settings['paddle_event_callback'] = $old_settings['paddle_event_callback'];
+		}
 
 		update_option( SETTING_OPTION, $settings );
 		add_settings_error( 'handyplugins-paddlepress', 'handyplugins-paddlepress', esc_html__( 'Settings saved.', 'handyplugins-paddlepress' ), 'success' );

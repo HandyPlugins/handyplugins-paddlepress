@@ -34,6 +34,7 @@ function get_settings() {
 		'restriction_message'               => esc_html__( 'You cannot see this content.', 'handyplugins-paddlepress' ),
 		'enable_logging'                    => false,
 		'max_log_count'                     => 20,
+		'paddle_event_callback'             => '',
 	];
 
 	$settings = get_option( SETTING_OPTION, [] );
