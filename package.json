@@ -31,7 +31,7 @@
     "url": "https://github.com/10up/plugin-scaffold"
   },
   "devDependencies": {
-    "10up-toolkit": "^4.0",
+    "10up-toolkit": "^4.1",
     "wp-pot-cli": "1.2.4"
   },
   "engines": {
