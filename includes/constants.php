@@ -41,3 +41,28 @@ const EMAIL_POST_TYPE      = 'ppp_email'; // CPT emails
 
 // Custom Taxonomy
 const DOWNLOAD_TAX_NAME = 'paddlepress_download_tag';
+
+const CHECKOUT_ATTRIBUTES
+= [
+	'data-product',
+	'data-title',
+	'data-message',
+	'data-coupon',
+	'data-marketing-consent',
+	'data-country',
+	'data-postcode',
+	'data-allow-quantity',
+	'data-disable-logout',
+	'data-locale',
+	'data-referrer',
+	'data-success',
+	'data-success-callback',
+	'data-close-callback',
+	'data-load-callback',
+	'data-upsell',
+	'data-upsell-title',
+	'data-upsell-text',
+	'data-upsell-action',
+	'data-upsell-coupon',
+	'data-override',
+];

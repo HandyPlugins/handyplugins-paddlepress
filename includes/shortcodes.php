@@ -7,6 +7,8 @@
 
 namespace PaddlePress\Shortcodes;
 
+use const PaddlePress\Constants\CHECKOUT_ATTRIBUTES;
+
 /**
  * Default setup routine
  *
@@ -28,7 +30,8 @@ function setup() {
  * @return string
  */
 function paddlepress_shortcode( $atts ) {
-	$settings = \PaddlePress\Utils\get_settings();
+	$settings           = \PaddlePress\Utils\get_settings();
+	$allowed_attributes = CHECKOUT_ATTRIBUTES;
 
 	$atts = wp_parse_args(
 		$atts,
@@ -66,12 +69,30 @@ function paddlepress_shortcode( $atts ) {
 		$data_success = 'data-success="' . esc_url( $data_success_url ) . '"';
 	}
 
-	return sprintf(
-		'<a href="#!" class="paddle_button paddlepress-button" %s %s %s data-product="%d">%s</a>',
-		$passthrough,
-		$email,
-		$data_success,
-		absint( $atts['product_id'] ),
-		esc_attr( $atts['label'] )
+	$additional_attributes = '';
+
+	foreach ( $allowed_attributes as $attribute ) {
+		if ( isset( $atts[ $attribute ] ) ) {
+			$additional_attributes .= sprintf( ' %s="%s" ', $attribute, esc_attr( $atts[ $attribute ] ) );
+		}
+	}
+
+	/**
+	 * Filters shortcode output
+	 *
+	 * @hook  paddlepress_button_shortcode
+	 * @since 1.5
+	 */
+	return apply_filters(
+		'paddlepress_button_shortcode',
+		sprintf(
+			'<a href="#!" class="paddle_button paddlepress-button" %s %s %s %s data-product="%d">%s</a>',
+			$passthrough,
+			$email,
+			$data_success,
+			$additional_attributes,
+			absint( $atts['product_id'] ),
+			esc_attr( $atts['label'] )
+		)
 	);
 }
