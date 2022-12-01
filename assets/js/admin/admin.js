@@ -13,7 +13,7 @@ jQuery(document).ready(function ($) {
 		$('#current_section').val($(this).attr('href'));
 	});
 
-	$('#enable_software_licensing').change(function () {
+	$('#enable_software_licensing').on('change', function () {
 		if (this.checked) {
 			$('#ignore_local_host_url_row').fadeIn('slow');
 		} else {
