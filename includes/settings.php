@@ -497,7 +497,7 @@ function plans_page() {
 function save_settings() {
 	$settings = [];
 
-	$nonce = filter_input( INPUT_POST, 'paddlepress_settings', FILTER_SANITIZE_STRING );
+	$nonce = filter_input( INPUT_POST, 'paddlepress_settings', FILTER_SANITIZE_SPECIAL_CHARS );
 
 	if ( wp_verify_nonce( $nonce, 'paddlepress_settings' ) ) {
 
