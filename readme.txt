@@ -2,9 +2,9 @@
 Contributors: handyplugins, m_uysl
 Tags: paddle, paddlepress, payment, software-licensing, membership
 Requires at least: 5.0
-Tested up to: 6.0
+Tested up to: 6.2
 Requires PHP: 5.6
-Stable tag: 1.6
+Stable tag: 1.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,10 @@ You can test the integration by using [Paddle Sandbox](https://developer.paddle.
 3. Paddle Subscription Plans
 
 == Changelog ==
+
+= 1.6.1 (February 27, 2023) =
+* PHP 8.1: fix deprecated 'FILTER_SANITIZE_STRING'
+* Tested with WP 6.2
 
 = 1.6 (December 1, 2022) =
 * Update deprecated JS code.
