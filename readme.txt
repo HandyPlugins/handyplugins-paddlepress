@@ -2,11 +2,12 @@
 Contributors: handyplugins, m_uysl
 Tags: paddle, paddlepress, payment, software-licensing, membership
 Requires at least: 5.0
-Tested up to: 6.2
+Tested up to: 6.3
 Requires PHP: 5.6
 Stable tag: 1.6.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Donate link:       https://handyplugins.co/donate/
 
 Easily accept credit card payments on your WordPress site using Paddle.
 
@@ -41,6 +42,13 @@ By upgrading to HandyPlugins PaddlePress PRO you also get access to one-on-one h
 
 = Contributing & Bug Report =
 Bug reports and pull requests are welcome on [Github](https://github.com/HandyPlugins/handyplugins-paddlepress). Some of our features are pro only, please consider before sending PR.
+
+__If you like this plugin, then consider checking out our other projects:__
+
+* <a href="https://handyplugins.co/magic-login-pro/" rel="friend">Magic Login Pro</a> – Easy, secure, and passwordless authentication for WordPress.
+* <a href="https://handyplugins.co/easy-text-to-speech/" rel="friend">Easy Text-to-Speech for WordPress</a> – Transform your textual content into high-quality synthesized speech with Amazon Polly.
+* <a href="https://handyplugins.co/handywriter/" rel="friend">Handywriter</a> – AI-powered writing assistant that can help you create content for your WordPress.
+
 
 = Documentation =
 Our documentation can be found on [https://handyplugins.co/paddlepress-pro/docs/](https://handyplugins.co/paddlepress-pro/docs/)
