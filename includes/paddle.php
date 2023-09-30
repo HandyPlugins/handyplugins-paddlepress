@@ -22,14 +22,14 @@ use \WP_Error as WP_Error;
 function api_request( $endpoint, $args ) {
 	$settings         = Utils\get_settings();
 	$vendor_id        = $settings['paddle_vendor_id'];
-	$vendor_auth_code = $settings['paddle_auth_code'];
+	$vendor_auth_code = Utils\get_decrypted_setting( 'paddle_auth_code' );
 
 	$base_url = 'https://vendors.paddle.com/api/2.0/';
 
 	if ( $settings['is_sandbox'] ) {
 		$base_url         = 'https://sandbox-vendors.paddle.com/api/2.0/';
 		$vendor_id        = $settings['sandbox_paddle_vendor_id'];
-		$vendor_auth_code = $settings['sandbox_paddle_auth_code'];
+		$vendor_auth_code = Utils\get_decrypted_setting( 'sandbox_paddle_auth_code' );
 	}
 
 	$existing_body = isset( $args['body'] ) ? (array) $args['body'] : [];

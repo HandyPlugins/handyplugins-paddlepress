@@ -7,10 +7,12 @@
 
 namespace PaddlePress\Settings;
 
+use PaddlePress\Encryption;
 use const PaddlePress\Constants\LICENSE_KEY_OPTION;
 use const PaddlePress\Constants\SETTING_OPTION;
 use PaddlePress\Utils;
 use PaddlePress\Paddle;
+use PaddlePress\PaddleBilling;
 use \WP_Error as WP_Error;
 
 
@@ -33,6 +35,7 @@ function setup() {
  * Add admin pages
  */
 function admin_menu() {
+	$settings = Utils\get_settings();
 
 	add_menu_page(
 		esc_html__( 'PaddlePress', 'handyplugins-paddlepress' ),
@@ -54,32 +57,46 @@ function admin_menu() {
 		'handyplugins-paddlepress'
 	);
 
-	add_submenu_page(
-		'handyplugins-paddlepress',
-		esc_html__( 'Products', 'handyplugins-paddlepress' ),
-		esc_html__( 'Products', 'handyplugins-paddlepress' ),
-		'manage_options',
-		'paddlepress-products',
-		__NAMESPACE__ . '\\products_page'
-	);
+	if ( $settings['enable_paddle_billing'] ) {
+		$menu_title = $settings['enable_paddle_classic'] ? esc_html__( 'Prices - (Billing)', 'paddlepress' ) : esc_html__( 'Products', 'paddlepress' );
+		add_submenu_page(
+			'handyplugins-paddlepress',
+			$menu_title,
+			$menu_title,
+			'manage_options',
+			'paddlepress-billing-prices',
+			__NAMESPACE__ . '\\billing_prices'
+		);
+	} else {
+		add_submenu_page(
+			'handyplugins-paddlepress',
+			esc_html__( 'Products', 'handyplugins-paddlepress' ),
+			esc_html__( 'Products', 'handyplugins-paddlepress' ),
+			'manage_options',
+			'paddlepress-products',
+			__NAMESPACE__ . '\\products_page'
+		);
 
-	add_submenu_page(
-		'handyplugins-paddlepress',
-		esc_html__( 'Plans', 'handyplugins-paddlepress' ),
-		esc_html__( 'Plans', 'handyplugins-paddlepress' ),
-		'manage_options',
-		'paddlepress-plans',
-		__NAMESPACE__ . '\\plans_page'
-	);
+		add_submenu_page(
+			'handyplugins-paddlepress',
+			esc_html__( 'Plans', 'handyplugins-paddlepress' ),
+			esc_html__( 'Plans', 'handyplugins-paddlepress' ),
+			'manage_options',
+			'paddlepress-plans',
+			__NAMESPACE__ . '\\plans_page'
+		);
+	}
 }
 
 /**
  * Main settings page of the plugin
  */
 function settings_page() {
-	$settings        = Utils\get_settings();
-	$license_key     = Utils\get_license_key();
-	$current_section = isset( $_REQUEST['current_section'] ) ? esc_attr( $_REQUEST['current_section'] ) : '#pp-settings-paddle'; // // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$settings          = Utils\get_settings();
+	$license_key       = Utils\get_license_key();
+	$current_section   = isset( $_REQUEST['current_section'] ) ? esc_attr( $_REQUEST['current_section'] ) : '#pp-settings-paddle'; // // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$auth_code         = Utils\get_decrypted_setting( 'paddle_auth_code' );
+	$auth_code_sandbox = Utils\get_decrypted_setting( 'sandbox_paddle_auth_code' );
 
 	?>
 	<div class="wrap">
@@ -111,7 +128,7 @@ function settings_page() {
 						<tr>
 							<th scope="row"><label for="paddle_auth_code"><?php esc_html_e( 'Auth Code', 'handyplugins-paddlepress' ); ?></label></th>
 							<td>
-								<input type="text" size="60" id="paddle_auth_code" name="paddle_auth_code" value="<?php echo esc_attr( $settings ? $settings['paddle_auth_code'] : '' ); ?>">
+								<input type="text" size="60" id="paddle_auth_code" name="paddle_auth_code" value="<?php echo esc_attr( $auth_code ? Utils\mask_string( $auth_code, 3 ) : '' ); ?>">
 								<p class="description"><?php esc_html_e( 'Enter your Paddle Auth code. You can create a new one from Developer Tools > Authentication on Paddle dashboard.', 'handyplugins-paddlepress' ); ?></p>
 							</td>
 						</tr>
@@ -123,7 +140,6 @@ function settings_page() {
 								<p class="description"><?php esc_html_e( 'API responses are cached for 15 minutes, if you want to see the products or subscriptions immediately after adding them to paddle, you can purge the cache.', 'handyplugins-paddlepress' ); ?></p>
 							</td>
 						</tr>
-
 					</table>
 				</div>
 				<div id="pp-settings-sandbox">
@@ -148,7 +164,7 @@ function settings_page() {
 						<tr>
 							<th scope="row"><label for="sandbox_paddle_auth_code"><?php esc_html_e( 'Auth Code', 'handyplugins-paddlepress' ); ?></label></th>
 							<td>
-								<input type="text" size="60" id="sandbox_paddle_auth_code" name="sandbox_paddle_auth_code" value="<?php echo esc_attr( $settings ? $settings['sandbox_paddle_auth_code'] : '' ); ?>">
+								<input type="text" size="60" id="sandbox_paddle_auth_code" name="sandbox_paddle_auth_code" value="<?php echo esc_attr( $auth_code_sandbox ? Utils\mask_string( $auth_code_sandbox, 3 ) : '' ); ?>">
 								<p class="description"><?php esc_html_e( 'Enter your Paddle Auth code. You can create a new one from Developer Tools > Authentication on Paddle dashboard.', 'handyplugins-paddlepress' ); ?></p>
 							</td>
 						</tr>
@@ -163,7 +179,30 @@ function settings_page() {
 					</table>
 				</div>
 				<div id="pp-settings-preferences">
-					<div class="notice inline notice-error"><p><?php esc_html_e( 'Only available in pro version' ); ?></p></div>
+					<table class="form-table">
+						<tr>
+							<th scope="row"><label for="enable_paddle_billing"><?php esc_html_e( 'Paddle Billing', 'handyplugins-paddlepress' ); ?></label></th>
+							<td>
+								<label>
+									<input type="checkbox" <?php checked( $settings['enable_paddle_billing'], 1 ); ?> id="enable_paddle_billing" name="enable_paddle_billing" value="1">
+									<?php esc_html_e( 'Enable Paddle Billing.', 'paddlepress' ); ?>
+								</label>
+								<p class="description"><?php esc_html_e( 'If Paddle Billing is activated on your account, enable this option.', 'handyplugins-paddlepress' ); ?></p>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="defer_paddle_scripts"><?php esc_html_e( 'Defer Paddle Scripts', 'handyplugins-paddlepress' ); ?></label></th>
+							<td>
+								<label>
+									<input type="checkbox" <?php checked( ( isset( $settings['defer_paddle_scripts'] ) ? $settings['defer_paddle_scripts'] : 0 ), 1 ); ?> id="defer_paddle_scripts" name="defer_paddle_scripts" value="1">
+									<?php esc_html_e( 'Defer script execution', 'handyplugins-paddlepress' ); ?>
+								</label>
+								<p class="description"><?php esc_html_e( 'Enabling deferred script execution resolves render-blocking issues associated with Paddle scripts, enhancing page load performance.', 'handyplugins-paddlepress' ); ?></p>
+							</td>
+						</tr>
+					</table>
+
+					<div class="notice inline notice-error"><p><?php esc_html_e( 'The following options are only available in the pro version.' ); ?></p></div>
 					<fieldset disabled>
 						<table class="form-table">
 							<tr>
@@ -524,6 +563,27 @@ function save_settings() {
 		$settings['skip_account_creation_on_mismatch'] = (bool) filter_input( INPUT_POST, 'skip_account_creation_on_mismatch' );
 		$settings['self_service_plan_change']          = (bool) filter_input( INPUT_POST, 'self_service_plan_change' );
 		$settings['restriction_message']               = sanitize_text_field( filter_input( INPUT_POST, 'restriction_message' ) );
+		$settings['enable_paddle_billing']             = (bool) filter_input( INPUT_POST, 'enable_paddle_billing' );
+		$settings['defer_paddle_scripts']              = (bool) filter_input( INPUT_POST, 'defer_paddle_scripts' );
+
+		$masked_auth_code_current = Utils\mask_string( $settings['paddle_auth_code'], 3 );
+		$masked_auth_code_prev    = Utils\mask_string( Utils\get_decrypted_setting( 'paddle_auth_code' ), 3 );
+
+		if ( $masked_auth_code_current === $masked_auth_code_prev ) {
+			$settings['paddle_auth_code'] = Utils\get_decrypted_setting( 'paddle_auth_code' ); // decrypted code
+		}
+
+		$masked_auth_code_sandbox_current = Utils\mask_string( $settings['sandbox_paddle_auth_code'], 3 );
+		$masked_auth_code_sandbox_prev    = Utils\mask_string( Utils\get_decrypted_setting( 'sandbox_paddle_auth_code' ), 3 );
+
+		if ( $masked_auth_code_sandbox_current === $masked_auth_code_sandbox_prev ) {
+			$settings['sandbox_paddle_auth_code'] = Utils\get_decrypted_setting( 'sandbox_paddle_auth_code' ); // decrypted code
+		}
+
+		$encryption = new Encryption();
+		// keep auth code encrypted
+		$settings['paddle_auth_code']         = $encryption->encrypt( $settings['paddle_auth_code'] );
+		$settings['sandbox_paddle_auth_code'] = $encryption->encrypt( $settings['sandbox_paddle_auth_code'] );
 
 		if ( current_user_can( 'unfiltered_html' ) ) {
 			$settings['paddle_event_callback'] = filter_input( INPUT_POST, 'paddle_event_callback' );
@@ -551,4 +611,71 @@ function purge_cache() {
 	delete_transient( 'paddlepress_paddle_products_sandbox' );
 	delete_transient( 'paddlepress_paddle_subscriptions' );
 	delete_transient( 'paddlepress_paddle_subscriptions_sandbox' );
+	delete_transient( 'paddlepress_billing_prices' );
+	delete_transient( 'paddlepress_billing_prices_sandbox' );
+	delete_transient( 'paddlepress_billing_products' );
+	delete_transient( 'paddlepress_billing_products_sandbox' );
+}
+
+
+/**
+ * List Paddle Billing Prices
+ *
+ * @return void
+ * @since 2.0
+ */
+function billing_prices() {
+	$prices          = [];
+	$prices_response = PaddleBilling\get_prices();
+
+	if ( isset( $prices_response['data'] ) ) {
+		$prices = $prices_response['data'];
+	}
+
+	?>
+	<div class="wrap paddlepress-settings">
+		<h1><?php esc_html_e( 'Paddle Products', 'paddlepress' ); ?></h1>
+		<?php if ( $prices ) : ?>
+			<table class="wp-list-table widefat fixed striped posts">
+				<thead>
+				<tr>
+					<th scope="col" id="id" class="manage-column column-author"><?php esc_html_e( 'ID', 'paddlepress' ); ?></th>
+					<th scope="col" id="product-name" class="manage-column column-product-name"><?php esc_html_e( 'Product Name', 'paddlepress' ); ?></th>
+					<th scope="col" id="product-name" class="manage-column column-product-name"><?php esc_html_e( 'Description', 'paddlepress' ); ?></th>
+					<th scope="col" id="shortcode" class="manage-column column-shortcode"><?php esc_html_e( 'ShortCode', 'paddlepress' ); ?></th>
+				</tr>
+				</thead>
+
+				<tbody id="the-list">
+				<?php foreach ( $prices as $price ) : ?>
+					<tr id="product-<?php echo esc_attr( $price['id'] ); ?>" class="edit author-self level-0 post-1 type-post status-publish format-standard hentry">
+						<td class="id column-id vertical-align-middle" data-colname="id">
+							<?php echo esc_html( $price['id'] ); ?>
+						</td>
+
+						<td class="product-name column-title column-primary page-title vertical-align-middle" data-colname="product-name">
+							<strong>
+								<?php echo esc_html( PaddleBilling\get_product_name_by_id( $price['product_id'] ) ); ?>
+							</strong>
+						</td>
+
+						<td class="product-name column-title column-primary page-title vertical-align-middle" data-colname="product-name">
+							<strong>
+								<?php echo esc_html( $price['description'] ); ?>
+							</strong>
+						</td>
+
+						<td class="shortcode column-shortcode vertical-align-middle" data-colname="Shortcode">
+							<code><?php printf( '[paddlepress_billing price_id="%s" label="%s"]', esc_attr( $price['id'] ), esc_html__( 'Buy Now!', 'paddlepress' ) ); ?></code>
+						</td>
+					</tr>
+				<?php endforeach; ?>
+				</tbody>
+			</table>
+		<?php else : ?>
+			<div class="notice inline"><p><?php esc_html_e( 'No products found! Please, make sure products have been added to your Paddle account and API credentials are correct.', 'paddlepress' ); ?></p></div>
+		<?php endif; ?>
+	</div>
+
+	<?php
 }

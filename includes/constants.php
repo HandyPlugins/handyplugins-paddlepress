@@ -10,7 +10,7 @@ namespace PaddlePress\Constants;
 const SETTING_OPTION     = 'paddlepress_settings'; // plugin settings
 const MAPPING_OPTION     = 'paddlepress_mappings'; // paddle product_id => membership post_id mappings
 const LICENSE_KEY_OPTION = 'paddlepress_license_key'; // plugin license key
-const DB_VERSION_OPTION  = 'paddlepress_db_version'; // paddlepress db version
+const DB_VERSION_OPTION  = 'paddlepress_free_db_version'; // paddlepress db version
 
 const ALERT_META_NAME                  = 'paddlepress_email_alert_name'; // alert name when the email send
 const MEMBERSHIP_TYPE_META_KEY         = 'paddlepress_membership_type'; // holds membership type recurring/one-off
@@ -65,4 +65,30 @@ const CHECKOUT_ATTRIBUTES
 	'data-upsell-action',
 	'data-upsell-coupon',
 	'data-override',
+];
+
+
+
+const BILLING_ATTRIBUTES
+= [
+	'data-display-mode',
+	'data-locale',
+	'data-theme',
+	'data-success-url',
+	'data-allow-logout',
+	'data-transaction-id',
+	'data-customer-id',
+	'data-customer-email',
+	'data-customer-address-id',
+	'data-customer-address-country-code',
+	'data-customer-address-postal-code',
+	'data-customer-address-region',
+	'data-customer-address-city',
+	'data-customer-address-first-line',
+	'data-business-id',
+	'data-business-name',
+	'data-business-tax-id',
+	'data-discount-code',
+	'data-discount-id',
+	'data-custom-data',
 ];

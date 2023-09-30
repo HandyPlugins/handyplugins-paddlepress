@@ -71,7 +71,7 @@ function script_url( $script, $context ) {
 		return new WP_Error( 'invalid_enqueue_context', 'Invalid $context specified in PaddlePressscript loader.' );
 	}
 
-	return PADDLEPRESS_URL . "dist/js/${script}.js";
+	return PADDLEPRESS_URL . "dist/js/{$script}.js";
 
 }
 
@@ -89,7 +89,7 @@ function style_url( $stylesheet, $context ) {
 		return new WP_Error( 'invalid_enqueue_context', 'Invalid $context specified in PaddlePressstylesheet loader.' );
 	}
 
-	return PADDLEPRESS_URL . "dist/css/${stylesheet}.css";
+	return PADDLEPRESS_URL . "dist/css/{$stylesheet}.css";
 
 }
 
@@ -105,38 +105,78 @@ function scripts() {
 		return;
 	}
 
-	$event_callback = str_replace( 'eventCallback:', '', $settings['paddle_event_callback'] );
-	$event_callback = wp_unslash( $event_callback );
-
-	$paddle_script_data  = '{' . PHP_EOL;
-	$paddle_script_data .= 'vendor: ' . esc_attr( $settings['paddle_vendor_id'] ) . ( $event_callback ? ',' : '' ) . PHP_EOL;
-	if ( $event_callback ) {
-		$paddle_script_data .= 'eventCallback: ' . $event_callback . PHP_EOL;
-	}
-
-	$paddle_script_data .= '}';
-
-	$paddle_script = 'Paddle.Setup(' . $paddle_script_data . ');';
-
-	if ( $settings['is_sandbox'] ) {
-		$paddle_script = "Paddle.Environment.set('sandbox');" . PHP_EOL;
-
-		$paddle_sandbox_script_data  = '{' . PHP_EOL;
-		$paddle_sandbox_script_data .= 'vendor: ' . esc_attr( $settings['sandbox_paddle_vendor_id'] ) . ( $event_callback ? ',' : '' ) . PHP_EOL;
-		if ( $event_callback ) {
-			$paddle_sandbox_script_data .= 'eventCallback: ' . $event_callback . PHP_EOL;
-		}
-
-		$paddle_sandbox_script_data .= '}';
-
-		$paddle_script .= 'Paddle.Setup(' . $paddle_sandbox_script_data . ');';
-	}
-
+	$paddle_js_url = Utils\get_paddle_js_url();
+	$paddle_script = paddle_setup_script();
 	$paddle_script = apply_filters( 'paddlepress_paddle_script', $paddle_script );
 
-	wp_enqueue_script( 'paddlepress-paddle', 'https://cdn.paddle.com/paddle/paddle.js', [], null, true ); // phpcs:ignore
+	wp_enqueue_script( 'paddlepress-paddle', $paddle_js_url, [], null, true ); // phpcs:ignore
 	wp_add_inline_script( 'paddlepress-paddle', $paddle_script );
+
+	if ( $settings['defer_paddle_scripts'] ) {
+		wp_script_add_data( 'paddlepress-paddle', 'script_execution', 'defer' );
+	}
 }
+
+/**
+ * Setup paddle script
+ *
+ * @return string
+ */
+function paddle_setup_script() {
+	$settings = Utils\get_settings();
+
+	if ( Utils\is_paddle_classic_enabled() ) {
+		$event_callback = str_replace( 'eventCallback:', '', $settings['paddle_event_callback'] );
+		$event_callback = wp_unslash( $event_callback );
+
+		$paddle_script_data  = '{' . PHP_EOL;
+		$paddle_script_data .= 'vendor: ' . esc_attr( $settings['paddle_vendor_id'] ) . ( $event_callback ? ',' : '' ) . PHP_EOL;
+		if ( $event_callback ) {
+			$paddle_script_data .= 'eventCallback: ' . $event_callback . PHP_EOL;
+		}
+
+		$paddle_script_data .= '}';
+
+		$paddle_script = 'Paddle.Setup(' . $paddle_script_data . ');';
+
+		if ( $settings['is_sandbox'] ) {
+			$paddle_script = "Paddle.Environment.set('sandbox');" . PHP_EOL;
+
+			$paddle_sandbox_script_data  = '{' . PHP_EOL;
+			$paddle_sandbox_script_data .= 'vendor: ' . esc_attr( $settings['sandbox_paddle_vendor_id'] ) . ( $event_callback ? ',' : '' ) . PHP_EOL;
+			if ( $event_callback ) {
+				$paddle_sandbox_script_data .= 'eventCallback: ' . $event_callback . PHP_EOL;
+			}
+
+			$paddle_sandbox_script_data .= '}';
+
+			$paddle_script .= 'Paddle.Setup(' . $paddle_sandbox_script_data . ');';
+		}
+	}
+
+	// billing overrides classic scripts
+	if ( Utils\is_paddle_billing_enabled() ) {
+		$paddle_script_data  = '{' . PHP_EOL;
+		$paddle_script_data .= 'seller: ' . esc_attr( $settings['paddle_vendor_id'] ) . PHP_EOL;
+		$paddle_script_data .= '}';
+		$paddle_script       = 'Paddle.Setup(' . $paddle_script_data . ');';
+		if ( $settings['is_sandbox'] ) {
+			$paddle_script               = "Paddle.Environment.set('sandbox');" . PHP_EOL;
+			$paddle_sandbox_script_data  = '{' . PHP_EOL;
+			$paddle_sandbox_script_data .= '	seller: ' . esc_attr( $settings['sandbox_paddle_vendor_id'] ) . PHP_EOL;
+			$paddle_sandbox_script_data .= '}';
+			$paddle_script              .= 'Paddle.Setup(' . $paddle_sandbox_script_data . ');';
+		}
+	}
+
+	if ( $settings['defer_paddle_scripts'] ) {
+		$paddle_script = 'window.addEventListener("DOMContentLoaded", function() { ' . PHP_EOL . $paddle_script . PHP_EOL . ' });';
+	}
+
+	return $paddle_script;
+
+}
+
 
 /**
  * Enqueue scripts for admin.

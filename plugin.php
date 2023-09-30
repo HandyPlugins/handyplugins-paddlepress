@@ -18,6 +18,7 @@
 
 // Useful global constants.
 define( 'PADDLEPRESS_VERSION', '1.6.1' );
+define( 'PADDLEPRESS_DB_VERSION', '2.0' );
 define( 'PADDLEPRESS_PLUGIN_FILE', __FILE__ );
 define( 'PADDLEPRESS_URL', plugin_dir_url( __FILE__ ) );
 define( 'PADDLEPRESS_PATH', plugin_dir_path( __FILE__ ) );
@@ -38,11 +39,15 @@ if ( file_exists( PADDLEPRESS_PATH . '/vendor/autoload.php' ) ) {
 require_once PADDLEPRESS_INC . 'constants.php';
 require_once PADDLEPRESS_INC . 'core.php';
 require_once PADDLEPRESS_INC . 'paddle.php';
+require_once PADDLEPRESS_INC . 'paddle-billing.php';
 require_once PADDLEPRESS_INC . 'settings.php';
 require_once PADDLEPRESS_INC . 'shortcodes.php';
 require_once PADDLEPRESS_INC . 'utils.php';
+require_once PADDLEPRESS_INC . 'install.php';
+require_once PADDLEPRESS_INC . 'class-encryption.php';
 
 PaddlePress\Core\setup();
+PaddlePress\Install\setup();
 PaddlePress\Settings\setup();
 PaddlePress\Shortcodes\setup();
 
