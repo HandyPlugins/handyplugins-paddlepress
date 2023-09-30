@@ -94,7 +94,7 @@ function admin_menu() {
 function settings_page() {
 	$settings          = Utils\get_settings();
 	$license_key       = Utils\get_license_key();
-	$current_section   = isset( $_REQUEST['current_section'] ) ? esc_attr( $_REQUEST['current_section'] ) : '#pp-settings-paddle'; // // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	$current_section   = isset( $_REQUEST['current_section'] ) ? esc_attr( wp_unslash( $_REQUEST['current_section'] ) ) : '#pp-settings-paddle'; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification.Recommended
 	$auth_code         = Utils\get_decrypted_setting( 'paddle_auth_code' );
 	$auth_code_sandbox = Utils\get_decrypted_setting( 'sandbox_paddle_auth_code' );
 
@@ -431,7 +431,7 @@ function products_page() {
 
 						<td class="product-name column-title column-primary page-title vertical-align-middle" data-colname="product-name">
 							<strong>
-								<a href="<?php echo esc_url( Paddle\purchase_url( absint( $product['id'] ) ) ); ?>"><?php echo esc_attr( $product['name'] ); ?></a>
+								<a href="<?php echo esc_url( Paddle\purchase_url( absint( $product['id'] ) ) ); ?>"><?php echo esc_html( $product['name'] ); ?></a>
 							</strong>
 						</td>
 
@@ -443,7 +443,7 @@ function products_page() {
 							<?php if ( empty( $product['base_price'] ) ) : ?>
 								<?php esc_html_e( 'Base price is missing', 'handyplugins-paddlepress' ); ?>
 							<?php else : ?>
-								<?php echo esc_attr( $product['base_price'] ); ?> <strong><?php echo esc_attr( $product['currency'] ); ?></strong>
+								<?php echo esc_attr( $product['base_price'] ); ?> <strong><?php echo esc_html( $product['currency'] ); ?></strong>
 							<?php endif; ?>
 						</td>
 					</tr>
@@ -491,7 +491,7 @@ function plans_page() {
 
 						<td class="product-name column-title column-primary page-title vertical-align-middle" data-colname="product-name">
 							<strong>
-								<a href="<?php echo esc_url( Paddle\purchase_url( absint( $plan['id'] ) ) ); ?>"><?php echo esc_attr( $plan['name'] ); ?></a>
+								<a href="<?php echo esc_url( Paddle\purchase_url( absint( $plan['id'] ) ) ); ?>"><?php echo esc_html( $plan['name'] ); ?></a>
 							</strong>
 						</td>
 
