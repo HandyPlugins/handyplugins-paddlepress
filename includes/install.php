@@ -58,8 +58,14 @@ function maybe_upgrade_20() {
 		$settings   = \PaddlePress\Utils\get_settings();
 		$encryption = new Encryption();
 
-		$settings['paddle_auth_code']         = ! empty( $settings['paddle_auth_code'] ) ? $encryption->encrypt( $settings['paddle_auth_code'] ) : '';
-		$settings['sandbox_paddle_auth_code'] = ! empty( $settings['sandbox_paddle_auth_code'] ) ? $encryption->encrypt( $settings['sandbox_paddle_auth_code'] ) : '';
+		if ( ! empty( $settings['paddle_auth_code'] ) && false === $encryption->decrypt( $settings['paddle_auth_code'] ) ) {
+			$settings['paddle_auth_code'] = $encryption->encrypt( $settings['paddle_auth_code'] );
+		}
+
+		if ( ! empty( $settings['sandbox_paddle_auth_code'] ) && false === $encryption->decrypt( $settings['sandbox_paddle_auth_code'] ) ) {
+			$settings['sandbox_paddle_auth_code'] = $encryption->encrypt( $settings['sandbox_paddle_auth_code'] );
+		}
+
 		update_option( SETTING_OPTION, $settings, false );
 	}
 }
