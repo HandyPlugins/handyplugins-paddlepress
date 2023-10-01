@@ -24,14 +24,14 @@
     "lint-php": "composer run lint",
     "lint": "npm run lint-css && npm run lint-js && npm run lint-php",
     "format": "npm run format-js",
-    "make-pot": "wp-pot -r  --src 'includes/**/*.php' 'plugin.php' 'assets' --dest-file 'languages/paddlepress.pot' --domain 'handyplugins-paddlepress'"
+    "make-pot": "wp i18n make-pot . languages/paddlepress.pot --include='includes'"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/10up/plugin-scaffold"
   },
   "devDependencies": {
-    "10up-toolkit": "^4.1",
+    "10up-toolkit": "^5.2",
     "wp-pot-cli": "1.5.0"
   },
   "engines": {
