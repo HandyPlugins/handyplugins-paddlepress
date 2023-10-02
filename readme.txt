@@ -3,11 +3,11 @@ Contributors: handyplugins, m_uysl
 Tags: paddle, paddlepress, payment, software-licensing, membership
 Requires at least: 5.0
 Tested up to: 6.3
-Requires PHP: 5.6
-Stable tag: 1.6.1
+Requires PHP: 7.2.5
+Stable tag: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Donate link:       https://handyplugins.co/donate/
+Donate link: https://handyplugins.co/donate/
 
 Easily accept credit card payments on your WordPress site using Paddle.
 
@@ -90,6 +90,15 @@ You can test the integration by using [Paddle Sandbox](https://developer.paddle.
 
 == Changelog ==
 
+= 2.0 (October 02, 2023) =
+* Added: Paddle Billing support.
+* Added: Deferred script execution.
+* Security: Encryption for auth code.
+* PHP 8.2: fix deprecated variable format.
+* Bump required PHP version to 7.2.5
+* Dependency updates.
+* Tested with WP 6.3
+
 = 1.6.1 (February 27, 2023) =
 * PHP 8.1: fix deprecated 'FILTER_SANITIZE_STRING'
 * Tested with WP 6.2
@@ -132,6 +141,9 @@ You can test the integration by using [Paddle Sandbox](https://developer.paddle.
 * First release
 
 == Upgrade Notice ==
+
+= 2.0 =
+* Paddle Billing support and encryption for auth code.
 
 = 1.0 =
 * First release

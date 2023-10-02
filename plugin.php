@@ -3,9 +3,9 @@
  * Plugin Name:       HandyPlugins PaddlePress - Paddle Integration for WordPress
  * Plugin URI:        https://handyplugins.co/paddlepress-pro/
  * Description:       HandyPlugins PaddlePress is a standalone payments plugin that connects Paddle with WordPress.
- * Version:           1.6.1
+ * Version:           2.0
  * Requires at least: 5.0
- * Requires PHP:      5.6
+ * Requires PHP:      7.2.5
  * Author:            HandyPlugins
  * Author URI:        https://handyplugins.co/
  * License:           GPL v2 or later
@@ -17,7 +17,7 @@
  */
 
 // Useful global constants.
-define( 'PADDLEPRESS_VERSION', '1.6.1' );
+define( 'PADDLEPRESS_VERSION', '2.0' );
 define( 'PADDLEPRESS_DB_VERSION', '2.0' );
 define( 'PADDLEPRESS_PLUGIN_FILE', __FILE__ );
 define( 'PADDLEPRESS_URL', plugin_dir_url( __FILE__ ) );
