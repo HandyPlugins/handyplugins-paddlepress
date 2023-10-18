@@ -54,7 +54,7 @@ function install() {
 function maybe_upgrade_20() {
 	$current_version = get_option( DB_VERSION_OPTION );
 
-	if ( ! version_compare( $current_version, '2.0', '<' ) ) {
+	if ( version_compare( $current_version, '2.0', '<' ) ) {
 		$settings   = \PaddlePress\Utils\get_settings();
 		$encryption = new Encryption();
 
