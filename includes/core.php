@@ -156,14 +156,23 @@ function paddle_setup_script() {
 
 	// billing overrides classic scripts
 	if ( Utils\is_paddle_billing_enabled() ) {
-		$paddle_script_data  = '{' . PHP_EOL;
-		$paddle_script_data .= 'seller: ' . esc_attr( $settings['paddle_vendor_id'] ) . PHP_EOL;
+		$paddle_script_data = '{' . PHP_EOL;
+		if ( ! empty( $settings['paddle_billing_client_token'] ) ) {
+			$paddle_script_data .= '	token: ' . sprintf( "'%s'", esc_attr( $settings['paddle_billing_client_token'] ) ) . PHP_EOL;
+		} else {
+			$paddle_script_data .= '	seller: ' . esc_attr( $settings['paddle_vendor_id'] ) . PHP_EOL;
+		}
+
 		$paddle_script_data .= '}';
 		$paddle_script       = 'Paddle.Setup(' . $paddle_script_data . ');';
 		if ( $settings['is_sandbox'] ) {
-			$paddle_script               = "Paddle.Environment.set('sandbox');" . PHP_EOL;
-			$paddle_sandbox_script_data  = '{' . PHP_EOL;
-			$paddle_sandbox_script_data .= '	seller: ' . esc_attr( $settings['sandbox_paddle_vendor_id'] ) . PHP_EOL;
+			$paddle_script              = "Paddle.Environment.set('sandbox');" . PHP_EOL;
+			$paddle_sandbox_script_data = '{' . PHP_EOL;
+			if ( ! empty( $settings['sandbox_paddle_billing_client_token'] ) ) {
+				$paddle_sandbox_script_data .= '	token: ' . sprintf( "'%s'", esc_attr( $settings['sandbox_paddle_billing_client_token'] ) ) . PHP_EOL;
+			} else {
+				$paddle_sandbox_script_data .= '	seller: ' . esc_attr( $settings['sandbox_paddle_vendor_id'] ) . PHP_EOL;
+			}
 			$paddle_sandbox_script_data .= '}';
 			$paddle_script              .= 'Paddle.Setup(' . $paddle_sandbox_script_data . ');';
 		}

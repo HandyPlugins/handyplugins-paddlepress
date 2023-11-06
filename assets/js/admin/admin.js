@@ -13,6 +13,15 @@ jQuery(document).ready(function ($) {
 		$('#current_section').val($(this).attr('href'));
 	});
 
+	$('#enable_profitwell').on('change', function () {
+		if (this.checked) {
+			$('#profitwell_token_row').fadeIn('slow');
+		} else {
+			$('#profitwell_token_row').fadeOut('slow');
+		}
+	});
+
+
 	$('#enable_software_licensing').on('change', function () {
 		if (this.checked) {
 			$('#ignore_local_host_url_row').fadeIn('slow');

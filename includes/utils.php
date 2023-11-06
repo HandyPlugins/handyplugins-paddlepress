@@ -47,6 +47,10 @@ function get_settings() {
 		'defer_paddle_scripts'                  => false,
 		'enable_paddle_billing'                 => false,
 		'enable_paddle_classic'                 => false,
+		'enable_profitwell'                     => false,
+		'profitwell_public_api_token'           => '',
+		'paddle_billing_client_token'           => '',
+		'sandbox_paddle_billing_client_token'   => '',
 	];
 
 	$settings = get_option( SETTING_OPTION, [] );

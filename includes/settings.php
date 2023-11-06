@@ -58,7 +58,7 @@ function admin_menu() {
 	);
 
 	if ( $settings['enable_paddle_billing'] ) {
-		$menu_title = $settings['enable_paddle_classic'] ? esc_html__( 'Prices - (Billing)', 'paddlepress' ) : esc_html__( 'Products', 'paddlepress' );
+		$menu_title = $settings['enable_paddle_classic'] ? esc_html__( 'Prices - (Billing)', 'handyplugins-paddlepress' ) : esc_html__( 'Products', 'handyplugins-paddlepress' );
 		add_submenu_page(
 			'handyplugins-paddlepress',
 			$menu_title,
@@ -125,6 +125,15 @@ function settings_page() {
 								<p class="description"><?php esc_html_e( 'Enter your Paddle Vendor ID. It can be found in Developer Tools > Authentication on Paddle dashboard', 'handyplugins-paddlepress' ); ?></p>
 							</td>
 						</tr>
+						<?php if ( $settings['enable_paddle_billing'] ) : ?>
+							<tr>
+								<th scope="row"><label for="paddle_billing_client_token"><?php esc_html_e( 'Client-side Token', 'handyplugins-paddlepress' ); ?></label></th>
+								<td>
+									<input type="text" size="100" id="paddle_billing_client_token" name="paddle_billing_client_token" value="<?php echo esc_attr( $settings['paddle_billing_client_token'] ); ?>">
+									<p class="description"><?php esc_html_e( 'If you enter a client token, it will be used in place of the seller ID for the Paddle.js initialization.', 'handyplugins-paddlepress' ); ?></p>
+								</td>
+							</tr>
+						<?php endif; ?>
 						<tr>
 							<th scope="row"><label for="paddle_auth_code"><?php esc_html_e( 'Auth Code', 'handyplugins-paddlepress' ); ?></label></th>
 							<td>
@@ -161,6 +170,15 @@ function settings_page() {
 								<p class="description"><?php esc_html_e( 'Enter your Paddle Vendor ID. It can be found in Developer Tools > Authentication on Paddle dashboard', 'handyplugins-paddlepress' ); ?></p>
 							</td>
 						</tr>
+						<?php if ( $settings['enable_paddle_billing'] ) : ?>
+							<tr>
+								<th scope="row"><label for="sandbox_paddle_billing_client_token"><?php esc_html_e( 'Client-side Token', 'handyplugins-paddlepress' ); ?></label></th>
+								<td>
+									<input type="text" size="100" id="sandbox_paddle_billing_client_token" name="sandbox_paddle_billing_client_token" value="<?php echo esc_attr( $settings['sandbox_paddle_billing_client_token'] ); ?>">
+									<p class="description"><?php esc_html_e( 'If you enter a client token, it will be used in place of the seller ID for the Paddle.js initialization.', 'handyplugins-paddlepress' ); ?></p>
+								</td>
+							</tr>
+						<?php endif; ?>
 						<tr>
 							<th scope="row"><label for="sandbox_paddle_auth_code"><?php esc_html_e( 'Auth Code', 'handyplugins-paddlepress' ); ?></label></th>
 							<td>
@@ -185,9 +203,28 @@ function settings_page() {
 							<td>
 								<label>
 									<input type="checkbox" <?php checked( $settings['enable_paddle_billing'], 1 ); ?> id="enable_paddle_billing" name="enable_paddle_billing" value="1">
-									<?php esc_html_e( 'Enable Paddle Billing.', 'paddlepress' ); ?>
+									<?php esc_html_e( 'Enable Paddle Billing.', 'handyplugins-paddlepress' ); ?>
 								</label>
 								<p class="description"><?php esc_html_e( 'If Paddle Billing is activated on your account, enable this option.', 'handyplugins-paddlepress' ); ?></p>
+							</td>
+						</tr>
+						<tr>
+							<th scope="row"><label for="enable_profitwell"><?php esc_html_e( 'Enable ProfitWell', 'handyplugins-paddlepress' ); ?></label></th>
+							<td>
+								<label>
+									<input type="checkbox" <?php checked( ( isset( $settings['enable_profitwell'] ) ? $settings['enable_profitwell'] : 0 ), 1 ); ?> id="enable_profitwell" name="enable_profitwell" value="1">
+									<?php esc_html_e( 'Enable ProfitWell Integration.', 'handyplugins-paddlepress' ); ?>
+								</label>
+								<p class="description"><?php esc_html_e( 'ProfitWell allows you to track engagement data and use ProfitWell Retain.', 'handyplugins-paddlepress' ); ?></p>
+							</td>
+						</tr>
+						<tr id="profitwell_token_row" style="<?php echo( ! isset( $settings['enable_profitwell'] ) || ! $settings['enable_profitwell'] ? 'display:none;' : '' ); ?>">
+							<th scope="row"><label for="profitwell_public_api_token"><?php esc_html_e( 'ProfitWell Token', 'handyplugins-paddlepress' ); ?></label></th>
+							<td>
+								<label>
+									<input type="text" size="80" id="profitwell_public_api_token" name="profitwell_public_api_token" value="<?php echo esc_attr( $settings['profitwell_public_api_token'] ); ?>">
+								</label>
+								<p class="description"><?php echo wp_kses_post( 'Enter your public API token for ProfitWell. You can find your token under <code>ProfitWell > Account Settings > Integrations > API keys/Dev</code> <a href="https://www2.profitwell.com/app/account/integrations" target="_blank" rel="noopener">(?)</a>.', 'handyplugins-paddlepress' ); ?></p>
 							</td>
 						</tr>
 						<tr>
@@ -274,7 +311,7 @@ function settings_page() {
 									<td>
 										<textarea id="paddle_event_callback" name="paddle_event_callback" cols="80" rows="10"><?php echo esc_html( $settings ? wp_unslash( $settings['paddle_event_callback'] ) : '' ); ?></textarea><br>
 										<br />
-										<span class="description"><?php esc_html_e( 'Enter eventCallback function. You can use it for measuring the conversion.', 'handyplugins-paddlepress' ); ?> <i><a href="https://developer.paddle.com/guides/ZG9jOjI1MzU0MDU3-measure-conversion" rel="noopener" target="_blank"><?php esc_html_e( 'Learn More', 'paddlepress' ); ?></a></i></span>
+										<span class="description"><?php esc_html_e( 'Enter eventCallback function. You can use it for measuring the conversion.', 'handyplugins-paddlepress' ); ?> <i><a href="https://developer.paddle.com/guides/ZG9jOjI1MzU0MDU3-measure-conversion" rel="noopener" target="_blank"><?php esc_html_e( 'Learn More', 'handyplugins-paddlepress' ); ?></a></i></span>
 									</td>
 								</tr>
 							<?php endif; ?>
@@ -547,24 +584,28 @@ function save_settings() {
 			return;
 		}
 
-		$settings['plugin_version']                    = PADDLEPRESS_VERSION;
-		$settings['paddle_vendor_id']                  = sanitize_text_field( filter_input( INPUT_POST, 'paddle_vendor_id' ) );
-		$settings['paddle_auth_code']                  = sanitize_text_field( filter_input( INPUT_POST, 'paddle_auth_code' ) );
-		$settings['paddle_public_key']                 = sanitize_textarea_field( filter_input( INPUT_POST, 'paddle_public_key' ) );
-		$settings['is_sandbox']                        = (bool) filter_input( INPUT_POST, 'is_sandbox' );
-		$settings['enable_logging']                    = (bool) filter_input( INPUT_POST, 'enable_logging' );
-		$settings['max_log_count']                     = absint( filter_input( INPUT_POST, 'max_log_count' ) );
-		$settings['sandbox_paddle_vendor_id']          = sanitize_text_field( filter_input( INPUT_POST, 'sandbox_paddle_vendor_id' ) );
-		$settings['sandbox_paddle_auth_code']          = sanitize_text_field( filter_input( INPUT_POST, 'sandbox_paddle_auth_code' ) );
-		$settings['sandbox_paddle_public_key']         = sanitize_textarea_field( filter_input( INPUT_POST, 'sandbox_paddle_public_key' ) );
-		$settings['enable_software_licensing']         = (bool) filter_input( INPUT_POST, 'enable_software_licensing' );
-		$settings['ignore_local_host_url']             = (bool) filter_input( INPUT_POST, 'ignore_local_host_url' );
-		$settings['refund_membership_cancellation']    = (bool) filter_input( INPUT_POST, 'refund_membership_cancellation' );
-		$settings['skip_account_creation_on_mismatch'] = (bool) filter_input( INPUT_POST, 'skip_account_creation_on_mismatch' );
-		$settings['self_service_plan_change']          = (bool) filter_input( INPUT_POST, 'self_service_plan_change' );
-		$settings['restriction_message']               = sanitize_text_field( filter_input( INPUT_POST, 'restriction_message' ) );
-		$settings['enable_paddle_billing']             = (bool) filter_input( INPUT_POST, 'enable_paddle_billing' );
-		$settings['defer_paddle_scripts']              = (bool) filter_input( INPUT_POST, 'defer_paddle_scripts' );
+		$settings['plugin_version']                      = PADDLEPRESS_VERSION;
+		$settings['paddle_vendor_id']                    = sanitize_text_field( filter_input( INPUT_POST, 'paddle_vendor_id' ) );
+		$settings['paddle_auth_code']                    = sanitize_text_field( filter_input( INPUT_POST, 'paddle_auth_code' ) );
+		$settings['paddle_public_key']                   = sanitize_textarea_field( filter_input( INPUT_POST, 'paddle_public_key' ) );
+		$settings['is_sandbox']                          = (bool) filter_input( INPUT_POST, 'is_sandbox' );
+		$settings['enable_logging']                      = (bool) filter_input( INPUT_POST, 'enable_logging' );
+		$settings['max_log_count']                       = absint( filter_input( INPUT_POST, 'max_log_count' ) );
+		$settings['sandbox_paddle_vendor_id']            = sanitize_text_field( filter_input( INPUT_POST, 'sandbox_paddle_vendor_id' ) );
+		$settings['sandbox_paddle_auth_code']            = sanitize_text_field( filter_input( INPUT_POST, 'sandbox_paddle_auth_code' ) );
+		$settings['sandbox_paddle_public_key']           = sanitize_textarea_field( filter_input( INPUT_POST, 'sandbox_paddle_public_key' ) );
+		$settings['enable_software_licensing']           = (bool) filter_input( INPUT_POST, 'enable_software_licensing' );
+		$settings['ignore_local_host_url']               = (bool) filter_input( INPUT_POST, 'ignore_local_host_url' );
+		$settings['refund_membership_cancellation']      = (bool) filter_input( INPUT_POST, 'refund_membership_cancellation' );
+		$settings['skip_account_creation_on_mismatch']   = (bool) filter_input( INPUT_POST, 'skip_account_creation_on_mismatch' );
+		$settings['self_service_plan_change']            = (bool) filter_input( INPUT_POST, 'self_service_plan_change' );
+		$settings['restriction_message']                 = sanitize_text_field( filter_input( INPUT_POST, 'restriction_message' ) );
+		$settings['enable_paddle_billing']               = (bool) filter_input( INPUT_POST, 'enable_paddle_billing' );
+		$settings['defer_paddle_scripts']                = (bool) filter_input( INPUT_POST, 'defer_paddle_scripts' );
+		$settings['enable_profitwell']                   = (bool) filter_input( INPUT_POST, 'enable_profitwell' );
+		$settings['profitwell_public_api_token']         = sanitize_text_field( filter_input( INPUT_POST, 'profitwell_public_api_token' ) );
+		$settings['paddle_billing_client_token']         = sanitize_text_field( filter_input( INPUT_POST, 'paddle_billing_client_token' ) );
+		$settings['sandbox_paddle_billing_client_token'] = sanitize_text_field( filter_input( INPUT_POST, 'sandbox_paddle_billing_client_token' ) );
 
 		$masked_auth_code_current = Utils\mask_string( $settings['paddle_auth_code'], 3 );
 		$masked_auth_code_prev    = Utils\mask_string( Utils\get_decrypted_setting( 'paddle_auth_code' ), 3 );
@@ -634,15 +675,15 @@ function billing_prices() {
 
 	?>
 	<div class="wrap paddlepress-settings">
-		<h1><?php esc_html_e( 'Paddle Products', 'paddlepress' ); ?></h1>
+		<h1><?php esc_html_e( 'Paddle Products', 'handyplugins-paddlepress' ); ?></h1>
 		<?php if ( $prices ) : ?>
 			<table class="wp-list-table widefat fixed striped posts">
 				<thead>
 				<tr>
-					<th scope="col" id="id" class="manage-column column-author"><?php esc_html_e( 'ID', 'paddlepress' ); ?></th>
-					<th scope="col" id="product-name" class="manage-column column-product-name"><?php esc_html_e( 'Product Name', 'paddlepress' ); ?></th>
-					<th scope="col" id="product-name" class="manage-column column-product-name"><?php esc_html_e( 'Description', 'paddlepress' ); ?></th>
-					<th scope="col" id="shortcode" class="manage-column column-shortcode"><?php esc_html_e( 'ShortCode', 'paddlepress' ); ?></th>
+					<th scope="col" id="id" class="manage-column column-author"><?php esc_html_e( 'ID', 'handyplugins-paddlepress' ); ?></th>
+					<th scope="col" id="product-name" class="manage-column column-product-name"><?php esc_html_e( 'Product Name', 'handyplugins-paddlepress' ); ?></th>
+					<th scope="col" id="product-name" class="manage-column column-product-name"><?php esc_html_e( 'Description', 'handyplugins-paddlepress' ); ?></th>
+					<th scope="col" id="shortcode" class="manage-column column-shortcode"><?php esc_html_e( 'ShortCode', 'handyplugins-paddlepress' ); ?></th>
 				</tr>
 				</thead>
 
@@ -666,14 +707,14 @@ function billing_prices() {
 						</td>
 
 						<td class="shortcode column-shortcode vertical-align-middle" data-colname="Shortcode">
-							<code><?php printf( '[paddlepress_billing price_id="%s" label="%s"]', esc_attr( $price['id'] ), esc_html__( 'Buy Now!', 'paddlepress' ) ); ?></code>
+							<code><?php printf( '[paddlepress_billing price_id="%s" label="%s"]', esc_attr( $price['id'] ), esc_html__( 'Buy Now!', 'handyplugins-paddlepress' ) ); ?></code>
 						</td>
 					</tr>
 				<?php endforeach; ?>
 				</tbody>
 			</table>
 		<?php else : ?>
-			<div class="notice inline"><p><?php esc_html_e( 'No products found! Please, make sure products have been added to your Paddle account and API credentials are correct.', 'paddlepress' ); ?></p></div>
+			<div class="notice inline"><p><?php esc_html_e( 'No products found! Please, make sure products have been added to your Paddle account and API credentials are correct.', 'handyplugins-paddlepress' ); ?></p></div>
 		<?php endif; ?>
 	</div>
 
