@@ -25,6 +25,8 @@ function setup() {
 	add_action( 'wp_enqueue_scripts', $n( 'scripts' ) );
 	add_action( 'admin_enqueue_scripts', $n( 'admin_styles' ) );
 	add_action( 'admin_enqueue_scripts', $n( 'admin_scripts' ) );
+	add_action( 'wp_footer', $n( 'add_profitwell_script' ) );
+
 	do_action( 'paddlepress_loaded' );
 }
 
@@ -216,4 +218,40 @@ function admin_styles() {
 		PADDLEPRESS_VERSION
 	);
 
+}
+
+
+/**
+ * Add ProfitWell Integration Script
+ *
+ * @return void
+ * @since 2.1
+ */
+function add_profitwell_script() {
+	$settings = Utils\get_settings();
+	if ( ! $settings['enable_profitwell'] ) {
+		return;
+	}
+
+	$token = $settings['profitwell_public_api_token'];
+	if ( empty( $token ) ) {
+		return;
+	}
+
+	$start_options = '{}';
+	$current_user  = wp_get_current_user();
+	if ( $current_user->exists() ) {
+		$start_options = "{user_email: '{$current_user->user_email}'}";
+	}
+
+	?>
+	<script id='profitwell-js' data-pw-auth='<?php echo esc_attr( $token ); ?>'>
+		(function(i,s,o,g,r,a,m){i[o]=i[o]||function(){(i[o].q=i[o].q||[]).push(arguments)};
+			a=s.createElement(g);m=s.getElementsByTagName(g)[0];a.async=1;a.src=r+'?auth='+
+				s.getElementById(o+'-js').getAttribute('data-pw-auth');m.parentNode.insertBefore(a,m);
+		})(window,document,'profitwell','script','https://public.profitwell.com/js/profitwell.js');
+
+		profitwell('start', <?php echo wp_kses_post( $start_options ); ?>);
+	</script>
+	<?php
 }
