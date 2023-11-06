@@ -4,7 +4,7 @@ Tags: paddle, paddlepress, payment, software-licensing, membership
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2.5
-Stable tag: 2.0.1
+Stable tag: 2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://handyplugins.co/donate/
@@ -48,6 +48,7 @@ __If you like this plugin, then consider checking out our other projects:__
 * <a href="https://handyplugins.co/magic-login-pro/" rel="friend">Magic Login Pro</a> – Easy, secure, and passwordless authentication for WordPress.
 * <a href="https://handyplugins.co/easy-text-to-speech/" rel="friend">Easy Text-to-Speech for WordPress</a> – Transform your textual content into high-quality synthesized speech with Amazon Polly.
 * <a href="https://handyplugins.co/handywriter/" rel="friend">Handywriter</a> – AI-powered writing assistant that can help you create content for your WordPress.
+* <a href="https://poweredcache.com/" rel="friend">Powered Cache</a> – Caching and Optimization for WordPress – Easily Improve PageSpeed & Web Vitals Score
 
 
 = Documentation =
@@ -89,6 +90,11 @@ You can test the integration by using [Paddle Sandbox](https://developer.paddle.
 3. Paddle Subscription Plans
 
 == Changelog ==
+
+= 2.1 (November 06, 2023) =
+* Add ProfitWell Integration.
+* Add client-side token support for Paddle Billing.
+* Dependency updates.
 
 = 2.0.1 (October 18, 2023) =
 * Fix DB upgrade routine.
