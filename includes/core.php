@@ -128,8 +128,12 @@ function paddle_setup_script() {
 	$settings = Utils\get_settings();
 
 	if ( Utils\is_paddle_classic_enabled() ) {
-		$event_callback = str_replace( 'eventCallback:', '', $settings['paddle_event_callback'] );
-		$event_callback = wp_unslash( $event_callback );
+		$event_callback = null;
+
+		if ( ! empty( $settings['paddle_event_callback'] ) ) {
+			$event_callback = str_replace( 'eventCallback:', '', $settings['paddle_event_callback'] );
+			$event_callback = wp_unslash( $event_callback );
+		}
 
 		$paddle_script_data  = '{' . PHP_EOL;
 		$paddle_script_data .= 'vendor: ' . esc_attr( $settings['paddle_vendor_id'] ) . ( $event_callback ? ',' : '' ) . PHP_EOL;
