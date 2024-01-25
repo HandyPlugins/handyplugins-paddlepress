@@ -546,7 +546,7 @@ function plans_page() {
 							<?php endforeach; ?>
 						</td>
 
-						<td class="reccuring-price column-price vertical-align-middle" data-colname="RecurringPrice">
+						<td class="recurring-price column-price vertical-align-middle" data-colname="RecurringPrice">
 							<?php foreach ( $plan['recurring_price'] as $currency => $amount ) : ?>
 								<?php echo esc_attr( $amount ) . ' - ' . esc_attr( $currency ); ?><br />
 							<?php endforeach; ?>
