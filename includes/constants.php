@@ -52,6 +52,7 @@ const CHECKOUT_ATTRIBUTES
 	'data-country',
 	'data-postcode',
 	'data-allow-quantity',
+	'data-quantity',
 	'data-disable-logout',
 	'data-locale',
 	'data-referrer',
