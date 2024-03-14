@@ -2,7 +2,7 @@
 Contributors: handyplugins, m_uysl
 Tags: paddle, paddlepress, payment, software-licensing, membership
 Requires at least: 5.0
-Tested up to: 6.4
+Tested up to: 6.5
 Requires PHP: 7.2.5
 Stable tag: 2.1.2
 License: GPLv2 or later
