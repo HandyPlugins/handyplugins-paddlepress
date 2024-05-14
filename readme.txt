@@ -35,9 +35,9 @@ By upgrading to HandyPlugins PaddlePress PRO you also get access to one-on-one h
 
 == WHO IS HANDYPLUGINS PADDLEPRESS PRO FOR? ==
 
-- Website owners who want to sell "members-only" digital content or provide SaaS functionality on their WordPress website. [Learn how to do that](https://handyplugins.co/paddlepress-pro/docs/how-to-set-up-a-membership-website/)
-- WordPress developers who want to sell WordPress [plugins](https://handyplugins.co/paddlepress-pro/docs/updater-implementation-for-wordpress-plugins/) or [themes](https://handyplugins.co/paddlepress-pro/docs/updater-implementation-for-wordpress-themes/).
-[Checkout](https://handyplugins.co/paddlepress-pro/docs/release-a-new-wordpress-product/) how easy to manage releases with HandyPlugins PaddlePress Pro.
+- Website owners who want to sell "members-only" digital content or provide SaaS functionality on their WordPress website. [Learn how to do that](https://handyplugins.co/docs/how-to-set-up-a-membership-website/)
+- WordPress developers who want to sell WordPress [plugins](https://handyplugins.co/docs/updater-implementation-for-wordpress-plugins/) or [themes](https://handyplugins.co/docs/updater-implementation-for-wordpress-themes/).
+[Checkout](https://handyplugins.co/docs/release-a-new-wordpress-product/) how easy to manage releases with HandyPlugins PaddlePress Pro.
 
 
 = Contributing & Bug Report =
@@ -53,7 +53,7 @@ __If you like this plugin, then consider checking out our other projects:__
 
 
 = Documentation =
-Our documentation can be found on [https://handyplugins.co/paddlepress-pro/docs/](https://handyplugins.co/paddlepress-pro/docs/)
+Our documentation can be found on [https://handyplugins.co/docs-category/paddlepress-pro/](https://handyplugins.co/docs-category/paddlepress-pro/)
 
 == Installation ==
 
@@ -74,7 +74,7 @@ Since Paddle is the merchant of record for your transactions. It supports almost
 
 = What am I not allowed to sell on Paddle? =
 
-Please read the [Paddle's AUP](https://paddle.com/support/aup/) guide.
+Please read the [Paddle's AUP](https://www.paddle.com/help/start/intro-to-paddle/what-am-i-not-allowed-to-sell-on-paddle/) guide.
 
 = Can I offer coupon codes to my site visitors? =
 
@@ -82,7 +82,7 @@ Absolutely. You just need to setup a coupon code in your Paddle dashboard.
 
 = How can I test Paddle? =
 
-You can test the integration by using [Paddle Sandbox](https://developer.paddle.com/getting-started/sandbox)
+You can test the integration by using [Paddle Sandbox](https://sandbox-login.paddle.com/signup)
 
 == Screenshots ==
 
