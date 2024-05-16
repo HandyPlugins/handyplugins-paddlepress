@@ -4,7 +4,7 @@ Tags: paddle, paddlepress, payment, software-licensing, membership
 Requires at least: 5.0
 Tested up to: 6.5
 Requires PHP: 7.2.5
-Stable tag: 2.1.3
+Stable tag: 2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://handyplugins.co/donate/
@@ -13,13 +13,13 @@ Easily accept credit card payments on your WordPress site with Paddle.
 
 == Description ==
 
-HandyPlugins PaddlePress is a standalone payments plugin that connects Paddle with WordPress. Simply set up a Paddle account and start accepting credit cards on your WordPress site.
+PaddlePress is a standalone payments plugin that connects Paddle with WordPress. Simply set up a Paddle account and start accepting credit cards on your WordPress site.
 
 __Plugin Website__: [https://handyplugins.co/paddlepress-pro/](https://handyplugins.co/paddlepress-pro/)
 
-= HandyPlugins PaddlePress PRO Features =
+= PaddlePress PRO Features =
 
-HandyPlugins PaddlePress PRO provides additional functionalities to integrate Paddle with WordPress. PRO features:
+PaddlePress PRO provides additional functionalities to integrate Paddle with WordPress. PRO features:
 
 - Customer Dashboard: Let your members easily view and manage their account details.
 - Membership Levels: Create an unlimited number of membership packages and map with your Paddle products or plans.
@@ -29,7 +29,7 @@ HandyPlugins PaddlePress PRO provides additional functionalities to integrate Pa
 - Subscription Upgrades and Downgrades: Customers can move between subscription levels and only pay the difference.
 - Emails: Send welcome emails to new members, email payment receipts, and remind members before their account expires automatically.
 
-By upgrading to HandyPlugins PaddlePress PRO you also get access to one-on-one help from our knowledgeable support team and our extensive documentation site.
+By upgrading to PaddlePress PRO you also get access to one-on-one help from our knowledgeable support team and our extensive documentation site.
 
 **[Learn more about PaddlePress Pro](https://handyplugins.co/paddlepress-pro/)**
 
@@ -48,8 +48,8 @@ __If you like this plugin, then consider checking out our other projects:__
 * <a href="https://handyplugins.co/magic-login-pro/" rel="friend">Magic Login Pro</a> – Easy, secure, and passwordless authentication for WordPress.
 * <a href="https://handyplugins.co/easy-text-to-speech/" rel="friend">Easy Text-to-Speech for WordPress</a> – Transform your textual content into high-quality synthesized speech with Amazon Polly.
 * <a href="https://handyplugins.co/handywriter/" rel="friend">Handywriter</a> – AI-powered writing assistant that can help you create content for your WordPress.
-* <a href="https://poweredcache.com/" rel="friend">Powered Cache</a> – Caching and Optimization for WordPress – Easily Improve PageSpeed & Web Vitals Score
 * <a href="https://handyplugins.co/wp-accessibility-toolkit/" rel="friend">WP Accessibility Toolkit</a> – A collection of tools to help you make your WordPress more accessible.
+* <a href="https://poweredcache.com/" rel="friend">Powered Cache</a> – Caching and Optimization for WordPress – Easily Improve PageSpeed & Web Vitals Score
 
 
 = Documentation =
@@ -84,6 +84,10 @@ Absolutely. You just need to setup a coupon code in your Paddle dashboard.
 
 You can test the integration by using [Paddle Sandbox](https://sandbox-login.paddle.com/signup)
 
+= How to customize Paddle buttons? =
+
+You can pass a class attribute to the shortcode to customize the button. [Learn More](https://handyplugins.co/docs/paddlepress-pro-checkout-buttons/)
+
 == Screenshots ==
 
 1. Plugin Settings
@@ -91,6 +95,12 @@ You can test the integration by using [Paddle Sandbox](https://sandbox-login.pad
 3. Paddle Subscription Plans
 
 == Changelog ==
+
+= 2.3 (May 16, 2024) =
+* Added: New class attribute for the shortcode to customize the button.
+* Added: Setting fields now sync with the Pro version.
+* Fixed: Bug causing masked strings to not save properly.
+* Updated: Dependencies.
 
 = 2.1.3 (March 14, 2024) =
 * Tested with WP 6.5
