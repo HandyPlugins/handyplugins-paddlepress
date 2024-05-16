@@ -2,35 +2,40 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: HandyPlugins PaddlePress - Paddle Integration for WordPress 2.1.3\n"
+"Project-Id-Version: HandyPlugins PaddlePress - Paddle Integration for WordPress 2.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/handyplugins-paddlepress\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-03-14T12:04:39+00:00\n"
+"POT-Creation-Date: 2024-05-16T16:48:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: handyplugins-paddlepress\n"
 
 #. Plugin Name of the plugin
+#: plugin.php
 msgid "HandyPlugins PaddlePress - Paddle Integration for WordPress"
 msgstr ""
 
 #. Plugin URI of the plugin
+#: plugin.php
 msgid "https://handyplugins.co/paddlepress-pro/"
 msgstr ""
 
 #. Description of the plugin
+#: plugin.php
 msgid "HandyPlugins PaddlePress is a standalone payments plugin that connects Paddle with WordPress."
 msgstr ""
 
 #. Author of the plugin
+#: plugin.php
 msgid "HandyPlugins"
 msgstr ""
 
 #. Author URI of the plugin
+#: plugin.php
 msgid "https://handyplugins.co/"
 msgstr ""
 
@@ -185,242 +190,242 @@ msgstr ""
 msgid "Enabling deferred script execution resolves render-blocking issues associated with Paddle scripts, enhancing page load performance."
 msgstr ""
 
-#: includes/settings.php:246
+#: includes/settings.php:256
 msgid "License Server"
 msgstr ""
 
-#: includes/settings.php:250
+#: includes/settings.php:260
 msgid "Enable license server which allows creating license key for purchase."
 msgstr ""
 
-#: includes/settings.php:252
+#: includes/settings.php:262
 msgid "If you are planning to sell WordPress plugins or themes, activate this option."
 msgstr ""
 
-#: includes/settings.php:257
+#: includes/settings.php:267
 msgid "Ignore Local Host URLs"
 msgstr ""
 
-#: includes/settings.php:261
+#: includes/settings.php:271
 msgid "Allow local development domains to be activated without registering the URL."
 msgstr ""
 
-#: includes/settings.php:263
+#: includes/settings.php:273
 msgid "Supported domains: localhost, *.test, *.local"
 msgstr ""
 
-#: includes/settings.php:268
+#: includes/settings.php:278
 msgid "Automatic Cancellation"
 msgstr ""
 
-#: includes/settings.php:272
+#: includes/settings.php:282
 msgid "Cancel membership when full refunded."
 msgstr ""
 
-#: includes/settings.php:274
+#: includes/settings.php:284
 msgid "It will immediately terminate the subscription once the full refund proceeds. One-off purchases are not included."
 msgstr ""
 
-#: includes/settings.php:279
+#: includes/settings.php:308
 msgid "Upgrade/Downgrade"
 msgstr ""
 
-#: includes/settings.php:283
+#: includes/settings.php:312
 msgid "Enable Upgrade & Downgrade Subscriptions"
 msgstr ""
 
-#: includes/settings.php:285
+#: includes/settings.php:314
 msgid "Allow users to upgrade/downgrade their subscriptions on my accounts page."
 msgstr ""
 
-#: includes/settings.php:290
+#: includes/settings.php:319
 msgid "Skip Account Creation"
 msgstr ""
 
-#: includes/settings.php:294
+#: includes/settings.php:323
 msgid "Do not create an account when a related product or plan is not mapped to a membership plan."
 msgstr ""
 
-#: includes/settings.php:296
+#: includes/settings.php:325
 msgid "If the purchased product has not mapped into a membership plan, it will skip the account creation or update."
 msgstr ""
 
-#: includes/settings.php:301
+#: includes/settings.php:330
 msgid "Restriction Message"
 msgstr ""
 
-#: includes/settings.php:305
+#: includes/settings.php:334
 msgid "Message displayed when a user does not have permission to view content."
 msgstr ""
 
-#: includes/settings.php:310
+#: includes/settings.php:339
 msgid "Event Callback"
 msgstr ""
 
-#: includes/settings.php:314
+#: includes/settings.php:343
 msgid "Enter eventCallback function. You can use it for measuring the conversion."
 msgstr ""
 
-#: includes/settings.php:314
+#: includes/settings.php:343
 msgid "Learn More"
 msgstr ""
 
-#: includes/settings.php:327
+#: includes/settings.php:356
 msgid "PaddlePress PRO benefits"
 msgstr ""
 
-#: includes/settings.php:335
+#: includes/settings.php:364
 msgid "Customer Dashboard"
 msgstr ""
 
-#: includes/settings.php:336
+#: includes/settings.php:365
 msgid "Let your members easily view and manage their account details."
 msgstr ""
 
-#: includes/settings.php:345
+#: includes/settings.php:374
 msgid "Membership Levels"
 msgstr ""
 
-#: includes/settings.php:346
+#: includes/settings.php:375
 msgid "Create an unlimited number of membership packages and map with your Paddle products or plans."
 msgstr ""
 
-#: includes/settings.php:355
+#: includes/settings.php:384
 msgid "Restrict Contents"
 msgstr ""
 
-#: includes/settings.php:356
+#: includes/settings.php:385
 msgid "Restrict your contents to particular membership levels easily."
 msgstr ""
 
-#: includes/settings.php:365
+#: includes/settings.php:394
 msgid "Downloads"
 msgstr ""
 
-#: includes/settings.php:366
+#: includes/settings.php:395
 msgid "Downloadable items are available under the customer’s account page. You can limit access to files based on the plans that customers have."
 msgstr ""
 
-#: includes/settings.php:375
+#: includes/settings.php:404
 msgid "Website License Management"
 msgstr ""
 
-#: includes/settings.php:376
+#: includes/settings.php:405
 msgid "If you decide to sell domain based licensing keys. You can let your users register their domains."
 msgstr ""
 
-#: includes/settings.php:385
+#: includes/settings.php:414
 msgid "Subscription Upgrades and Downgrades"
 msgstr ""
 
-#: includes/settings.php:386
+#: includes/settings.php:415
 msgid "Customers can move between subscription levels and only pay the difference."
 msgstr ""
 
-#: includes/settings.php:395
+#: includes/settings.php:424
 msgid "Emails"
 msgstr ""
 
-#: includes/settings.php:396
+#: includes/settings.php:425
 msgid "Send welcome emails to new members, email payment receipts, and remind members before their account expires automatically."
 msgstr ""
 
-#: includes/settings.php:405
+#: includes/settings.php:434
 msgid "Premium Support"
 msgstr ""
 
-#: includes/settings.php:406
+#: includes/settings.php:435
 msgid "We are providing top-notch premium support to premium users."
 msgstr ""
 
-#: includes/settings.php:413
+#: includes/settings.php:442
 msgid "Buy PaddlePress Pro"
 msgstr ""
 
-#: includes/settings.php:427
+#: includes/settings.php:456
 msgid "Save Changes"
 msgstr ""
 
-#: includes/settings.php:446
-#: includes/settings.php:678
+#: includes/settings.php:475
+#: includes/settings.php:701
 msgid "Paddle Products"
 msgstr ""
 
-#: includes/settings.php:451
+#: includes/settings.php:480
 msgid "Icon"
 msgstr ""
 
-#: includes/settings.php:452
-#: includes/settings.php:512
-#: includes/settings.php:683
+#: includes/settings.php:481
+#: includes/settings.php:541
+#: includes/settings.php:706
 msgid "ID"
 msgstr ""
 
-#: includes/settings.php:453
-#: includes/settings.php:513
-#: includes/settings.php:684
+#: includes/settings.php:482
+#: includes/settings.php:542
+#: includes/settings.php:707
 msgid "Product Name"
 msgstr ""
 
-#: includes/settings.php:454
-#: includes/settings.php:514
-#: includes/settings.php:686
+#: includes/settings.php:483
+#: includes/settings.php:543
+#: includes/settings.php:709
 msgid "ShortCode"
 msgstr ""
 
-#: includes/settings.php:455
+#: includes/settings.php:484
 msgid "Price"
 msgstr ""
 
-#: includes/settings.php:476
-#: includes/settings.php:536
-#: includes/settings.php:710
+#: includes/settings.php:505
+#: includes/settings.php:565
+#: includes/settings.php:733
 #: includes/shortcodes.php:41
 msgid "Buy Now!"
 msgstr ""
 
-#: includes/settings.php:481
+#: includes/settings.php:510
 msgid "Base price is missing"
 msgstr ""
 
-#: includes/settings.php:491
-#: includes/settings.php:717
+#: includes/settings.php:520
+#: includes/settings.php:740
 msgid "No products found! Please, make sure products have been added to your Paddle account and API credentials are correct."
 msgstr ""
 
-#: includes/settings.php:507
+#: includes/settings.php:536
 msgid "Paddle Subscription Plans"
 msgstr ""
 
-#: includes/settings.php:515
+#: includes/settings.php:544
 msgid "Billing Type"
 msgstr ""
 
-#: includes/settings.php:516
+#: includes/settings.php:545
 msgid "Initial Price"
 msgstr ""
 
-#: includes/settings.php:517
+#: includes/settings.php:546
 msgid "Recurring Price"
 msgstr ""
 
-#: includes/settings.php:518
+#: includes/settings.php:547
 msgid "Trial Days"
 msgstr ""
 
-#: includes/settings.php:563
+#: includes/settings.php:592
 msgid "No subscription plans found! Please, make sure subscription plans have been added to your Paddle account and API credentials are correct."
 msgstr ""
 
-#: includes/settings.php:582
+#: includes/settings.php:611
 msgid "Cached data has been cleared!"
 msgstr ""
 
-#: includes/settings.php:637
+#: includes/settings.php:660
 msgid "Settings saved."
 msgstr ""
 
-#: includes/settings.php:685
+#: includes/settings.php:708
 msgid "Description"
 msgstr ""
 
