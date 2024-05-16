@@ -243,6 +243,16 @@ function settings_page() {
 					<fieldset disabled>
 						<table class="form-table">
 							<tr>
+								<th scope="row"><label for="restrict_wp_admin_for_customers"><?php esc_html_e( 'Restrict Customers to Access WP Dashboard', 'paddlepress' ); ?></label></th>
+								<td>
+									<label>
+										<input type="checkbox" <?php checked( ( isset( $settings['restrict_wp_admin_for_customers'] ) ? $settings['restrict_wp_admin_for_customers'] : 0 ), 1 ); ?> id="restrict_wp_admin_for_customers" name="restrict_wp_admin_for_customers" value="1">
+										<?php esc_html_e( 'Check to prevent customers to access WordPress dashboard.', 'paddlepress' ); ?>
+									</label>
+									<p class="description"><?php esc_html_e( 'This also removes admin bar from customers.', 'paddlepress' ); ?></p>
+								</td>
+							</tr>
+							<tr>
 								<th scope="row"><label for="enable_software_licensing"><?php esc_html_e( 'License Server', 'handyplugins-paddlepress' ); ?></label></th>
 								<td>
 									<label>
@@ -274,7 +284,26 @@ function settings_page() {
 									<p class="description"><?php esc_html_e( 'It will immediately terminate the subscription once the full refund proceeds. One-off purchases are not included.', 'handyplugins-paddlepress' ); ?></p>
 								</td>
 							</tr>
-
+							<tr>
+								<th scope="row"><label for="self_service_plan_cancel"><?php esc_html_e( 'Subscription Cancellation', 'paddlepress' ); ?></label></th>
+								<td>
+									<label>
+										<input type="checkbox" <?php checked( ( isset( $settings['self_service_plan_cancel'] ) ? $settings['self_service_plan_cancel'] : 0 ), 1 ); ?> id="self_service_plan_cancel" name="self_service_plan_cancel" value="1">
+										<?php esc_html_e( 'Allow customers to cancel their subscriptions.', 'paddlepress' ); ?>
+									</label>
+									<p class="description"><?php esc_html_e( 'It allows users to cancel their subscriptions on my accounts page.', 'paddlepress' ); ?></p>
+								</td>
+							</tr>
+							<tr id="enable_self_service_plan_pause" style="<?php echo( ! isset( $settings['enable_paddle_billing'] ) || ! $settings['enable_paddle_billing'] ? 'display:none;' : '' ); ?>">
+								<th scope="row"><label for="self_service_plan_pause"><?php esc_html_e( 'Subscription Pause/Resume', 'paddlepress' ); ?></label></th>
+								<td>
+									<label>
+										<input type="checkbox" <?php checked( ( isset( $settings['self_service_plan_pause'] ) ? $settings['self_service_plan_pause'] : 0 ), 1 ); ?> id="self_service_plan_pause" name="self_service_plan_pause" value="1">
+										<?php esc_html_e( 'Enable Pause & Resume Subscriptions', 'paddlepress' ); ?>
+									</label>
+									<p class="description"><?php esc_html_e( 'Allow users to pause/resume their subscriptions on my accounts page.(It only works with Paddle Billing)', 'paddlepress' ); ?></p>
+								</td>
+							</tr>
 							<tr>
 								<th scope="row"><label for="self_service_plan_change"><?php esc_html_e( 'Upgrade/Downgrade', 'handyplugins-paddlepress' ); ?></label></th>
 								<td>

@@ -51,6 +51,9 @@ function get_settings() {
 		'profitwell_public_api_token'           => '',
 		'paddle_billing_client_token'           => '',
 		'sandbox_paddle_billing_client_token'   => '',
+		'restrict_wp_admin_for_customers'       => false,
+		'self_service_plan_cancel'              => true,
+		'self_service_plan_pause'               => true,
 	];
 
 	$settings = get_option( SETTING_OPTION, [] );
