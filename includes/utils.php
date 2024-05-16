@@ -195,3 +195,19 @@ function get_paddle_js_url() {
 
 	return (string) apply_filters( 'paddlepress_paddle_js_url', $paddle_js_url );
 }
+
+/**
+ * Check if the given value is masked
+ *
+ * @param string $value       The value to check
+ * @param int    $mask_length The length of the mask
+ *
+ * @return bool
+ */
+function is_masked_value( $value, $mask_length = 3 ) {
+	// Get the last characters of the string
+	$last_chars = substr( $value, - $mask_length );
+
+	// Check if the last characters are asterisks
+	return str_repeat( '*', $mask_length ) === $last_chars;
+}

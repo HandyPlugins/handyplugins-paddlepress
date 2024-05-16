@@ -607,18 +607,12 @@ function save_settings() {
 		$settings['paddle_billing_client_token']         = sanitize_text_field( filter_input( INPUT_POST, 'paddle_billing_client_token' ) );
 		$settings['sandbox_paddle_billing_client_token'] = sanitize_text_field( filter_input( INPUT_POST, 'sandbox_paddle_billing_client_token' ) );
 
-		$masked_auth_code_current = Utils\mask_string( $settings['paddle_auth_code'], 3 );
-		$masked_auth_code_prev    = Utils\mask_string( Utils\get_decrypted_setting( 'paddle_auth_code' ), 3 );
-
-		if ( $masked_auth_code_current === $masked_auth_code_prev ) {
+		if ( Utils\is_masked_value( $settings['paddle_auth_code'] ) ) {
 			$settings['paddle_auth_code'] = Utils\get_decrypted_setting( 'paddle_auth_code' ); // decrypted code
 		}
 
-		$masked_auth_code_sandbox_current = Utils\mask_string( $settings['sandbox_paddle_auth_code'], 3 );
-		$masked_auth_code_sandbox_prev    = Utils\mask_string( Utils\get_decrypted_setting( 'sandbox_paddle_auth_code' ), 3 );
-
-		if ( $masked_auth_code_sandbox_current === $masked_auth_code_sandbox_prev ) {
-			$settings['sandbox_paddle_auth_code'] = Utils\get_decrypted_setting( 'sandbox_paddle_auth_code' ); // decrypted code
+		if ( Utils\is_masked_value( $settings['sandbox_paddle_auth_code'] ) ) {
+			$settings['sandbox_paddle_auth_code'] = Utils\get_decrypted_setting( 'sandbox_paddle_auth_code' );
 		}
 
 		$encryption = new Encryption();
