@@ -79,6 +79,12 @@ function paddlepress_shortcode( $atts ) {
 		}
 	}
 
+	$class = 'paddle_button paddlepress-button paddlepress-classic-button';
+
+	if ( ! empty( $atts['class'] ) ) {
+		$class .= ' ' . esc_attr( $atts['class'] );
+	}
+
 	/**
 	 * Filters shortcode output
 	 *
@@ -88,7 +94,8 @@ function paddlepress_shortcode( $atts ) {
 	return apply_filters(
 		'paddlepress_button_shortcode',
 		sprintf(
-			'<a href="#!" class="paddle_button paddlepress-button" %s %s %s %s data-product="%d">%s</a>',
+			'<a href="#!" class="%s" %s %s %s %s data-product="%d">%s</a>',
+			$class,
 			$passthrough,
 			$email,
 			$data_success,
@@ -163,6 +170,12 @@ function paddlepress_billing_shortcode( $atts ) {
 		}
 	}
 
+	$class = 'paddle_button paddlepress-button paddlepress-billing-button';
+
+	if ( ! empty( $atts['class'] ) ) {
+		$class .= ' ' . esc_attr( $atts['class'] );
+	}
+
 	/**
 	 * Filters shortcode output
 	 *
@@ -172,7 +185,8 @@ function paddlepress_billing_shortcode( $atts ) {
 	return apply_filters(
 		'paddlepress_button_shortcode',
 		sprintf(
-			'<a href="#!" class="paddle_button paddlepress-button" %s %s %s %s >%s</a>',
+			'<a href="#!" class="%s" %s %s %s %s >%s</a>',
+			$class,
 			$email,
 			$data_success,
 			$data_items_str,
