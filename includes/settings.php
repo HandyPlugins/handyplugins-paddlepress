@@ -243,13 +243,13 @@ function settings_page() {
 					<fieldset disabled>
 						<table class="form-table">
 							<tr>
-								<th scope="row"><label for="restrict_wp_admin_for_customers"><?php esc_html_e( 'Restrict Customers to Access WP Dashboard', 'paddlepress' ); ?></label></th>
+								<th scope="row"><label for="restrict_wp_admin_for_customers"><?php esc_html_e( 'Restrict Customers to Access WP Dashboard', 'handyplugins-paddlepress' ); ?></label></th>
 								<td>
 									<label>
 										<input type="checkbox" <?php checked( ( isset( $settings['restrict_wp_admin_for_customers'] ) ? $settings['restrict_wp_admin_for_customers'] : 0 ), 1 ); ?> id="restrict_wp_admin_for_customers" name="restrict_wp_admin_for_customers" value="1">
-										<?php esc_html_e( 'Check to prevent customers to access WordPress dashboard.', 'paddlepress' ); ?>
+										<?php esc_html_e( 'Check to prevent customers to access WordPress dashboard.', 'handyplugins-paddlepress' ); ?>
 									</label>
-									<p class="description"><?php esc_html_e( 'This also removes admin bar from customers.', 'paddlepress' ); ?></p>
+									<p class="description"><?php esc_html_e( 'This also removes admin bar from customers.', 'handyplugins-paddlepress' ); ?></p>
 								</td>
 							</tr>
 							<tr>
@@ -285,23 +285,23 @@ function settings_page() {
 								</td>
 							</tr>
 							<tr>
-								<th scope="row"><label for="self_service_plan_cancel"><?php esc_html_e( 'Subscription Cancellation', 'paddlepress' ); ?></label></th>
+								<th scope="row"><label for="self_service_plan_cancel"><?php esc_html_e( 'Subscription Cancellation', 'handyplugins-paddlepress' ); ?></label></th>
 								<td>
 									<label>
 										<input type="checkbox" <?php checked( ( isset( $settings['self_service_plan_cancel'] ) ? $settings['self_service_plan_cancel'] : 0 ), 1 ); ?> id="self_service_plan_cancel" name="self_service_plan_cancel" value="1">
-										<?php esc_html_e( 'Allow customers to cancel their subscriptions.', 'paddlepress' ); ?>
+										<?php esc_html_e( 'Allow customers to cancel their subscriptions.', 'handyplugins-paddlepress' ); ?>
 									</label>
-									<p class="description"><?php esc_html_e( 'It allows users to cancel their subscriptions on my accounts page.', 'paddlepress' ); ?></p>
+									<p class="description"><?php esc_html_e( 'It allows users to cancel their subscriptions on my accounts page.', 'handyplugins-paddlepress' ); ?></p>
 								</td>
 							</tr>
 							<tr id="enable_self_service_plan_pause" style="<?php echo( ! isset( $settings['enable_paddle_billing'] ) || ! $settings['enable_paddle_billing'] ? 'display:none;' : '' ); ?>">
-								<th scope="row"><label for="self_service_plan_pause"><?php esc_html_e( 'Subscription Pause/Resume', 'paddlepress' ); ?></label></th>
+								<th scope="row"><label for="self_service_plan_pause"><?php esc_html_e( 'Subscription Pause/Resume', 'handyplugins-paddlepress' ); ?></label></th>
 								<td>
 									<label>
 										<input type="checkbox" <?php checked( ( isset( $settings['self_service_plan_pause'] ) ? $settings['self_service_plan_pause'] : 0 ), 1 ); ?> id="self_service_plan_pause" name="self_service_plan_pause" value="1">
-										<?php esc_html_e( 'Enable Pause & Resume Subscriptions', 'paddlepress' ); ?>
+										<?php esc_html_e( 'Enable Pause & Resume Subscriptions', 'handyplugins-paddlepress' ); ?>
 									</label>
-									<p class="description"><?php esc_html_e( 'Allow users to pause/resume their subscriptions on my accounts page.(It only works with Paddle Billing)', 'paddlepress' ); ?></p>
+									<p class="description"><?php esc_html_e( 'Allow users to pause/resume their subscriptions on my accounts page.(It only works with Paddle Billing)', 'handyplugins-paddlepress' ); ?></p>
 								</td>
 							</tr>
 							<tr>
@@ -618,7 +618,7 @@ function save_settings() {
 
 		if ( isset( $_POST['clear_api_cache'] ) ) {
 			purge_cache();
-			add_settings_error( 'paddlepress', 'paddlepress', esc_html__( 'Cached data has been cleared!', 'handyplugins-paddlepress' ), 'success' );
+			add_settings_error( 'handyplugins-paddlepress', 'handyplugins-paddlepress', esc_html__( 'Cached data has been cleared!', 'handyplugins-paddlepress' ), 'success' );
 
 			return;
 		}
