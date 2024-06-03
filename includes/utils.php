@@ -54,6 +54,7 @@ function get_settings() {
 		'restrict_wp_admin_for_customers'       => false,
 		'self_service_plan_cancel'              => true,
 		'self_service_plan_pause'               => true,
+		'enable_invoices'                       => true,
 	];
 
 	$settings = get_option( SETTING_OPTION, [] );
