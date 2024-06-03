@@ -305,6 +305,16 @@ function settings_page() {
 								</td>
 							</tr>
 							<tr>
+								<th scope="row"><label for="enable_invoices"><?php esc_html_e( 'Invoice/Receipt', 'handyplugins-paddlepress' ); ?></label></th>
+								<td>
+									<label>
+										<input type="checkbox" <?php checked( ( isset( $settings['enable_invoices'] ) ? $settings['enable_invoices'] : 0 ), 1 ); ?> id="enable_invoices" name="enable_invoices" value="1">
+										<?php esc_html_e( 'Show Receipts/Invoices', 'handyplugins-paddlepress' ); ?>
+									</label>
+									<p class="description"><?php esc_html_e( 'Allow users to view receipts (Paddle Classic) and invoices (Paddle Billing)', 'handyplugins-paddlepress' ); ?></p>
+								</td>
+							</tr>
+							<tr>
 								<th scope="row"><label for="self_service_plan_change"><?php esc_html_e( 'Upgrade/Downgrade', 'handyplugins-paddlepress' ); ?></label></th>
 								<td>
 									<label>
