@@ -4,7 +4,7 @@ Tags: paddle, paddlepress, payment, software-licensing, membership
 Requires at least: 5.0
 Tested up to: 6.6
 Requires PHP: 7.2.5
-Stable tag: 2.3.2
+Stable tag: 2.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://handyplugins.co/donate/
@@ -95,6 +95,10 @@ You can pass a class attribute to the shortcode to customize the button. [Learn 
 3. Paddle Subscription Plans
 
 == Changelog ==
+
+= 2.3.3 (September 02, 2024) =
+* Fixed: DB version comparison for upgrade routine
+* Updated: Dependencies.
 
 = 2.3.2 (July 10, 2024) =
 * Updated: Dependencies.
