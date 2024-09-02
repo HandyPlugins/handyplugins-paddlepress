@@ -33,10 +33,11 @@ function install() {
 		return;
 	}
 
-	// lets set the transient now.
-	set_transient( 'handyplugins_paddlepress_installing', 'yes', MINUTE_IN_SECONDS );
+	$requires_update = version_compare( get_option( DB_VERSION_OPTION ), PADDLEPRESS_DB_VERSION, '<' );
 
-	if ( version_compare( get_option( DB_VERSION_OPTION ), PADDLEPRESS_DB_VERSION, '<' ) ) {
+	if ( $requires_update ) {
+		// lets set the transient now.
+		set_transient( 'handyplugins_paddlepress_installing', 'yes', MINUTE_IN_SECONDS );
 		maybe_upgrade_20();
 		update_option( DB_VERSION_OPTION, PADDLEPRESS_DB_VERSION );
 		do_action( 'paddlepress_db_upgraded' );
