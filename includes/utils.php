@@ -45,7 +45,7 @@ function get_settings() {
 		'max_log_count'                         => 20,
 		'paddle_event_callback'                 => '',
 		'defer_paddle_scripts'                  => false,
-		'enable_paddle_billing'                 => false,
+		'enable_paddle_billing'                 => true,
 		'enable_paddle_classic'                 => false,
 		'enable_profitwell'                     => false,
 		'profitwell_public_api_token'           => '',
