@@ -70,7 +70,7 @@ function get_enqueue_contexts() {
 function script_url( $script, $context ) {
 
 	if ( ! in_array( $context, get_enqueue_contexts(), true ) ) {
-		return new WP_Error( 'invalid_enqueue_context', 'Invalid $context specified in PaddlePressscript loader.' );
+		return new WP_Error( 'invalid_enqueue_context', 'Invalid $context specified in PaddlePress script loader.' );
 	}
 
 	return PADDLEPRESS_URL . "dist/js/{$script}.js";
@@ -88,7 +88,7 @@ function script_url( $script, $context ) {
 function style_url( $stylesheet, $context ) {
 
 	if ( ! in_array( $context, get_enqueue_contexts(), true ) ) {
-		return new WP_Error( 'invalid_enqueue_context', 'Invalid $context specified in PaddlePressstylesheet loader.' );
+		return new WP_Error( 'invalid_enqueue_context', 'Invalid $context specified in PaddlePress stylesheet loader.' );
 	}
 
 	return PADDLEPRESS_URL . "dist/css/{$stylesheet}.css";
