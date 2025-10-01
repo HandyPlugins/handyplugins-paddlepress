@@ -4,7 +4,7 @@ Tags: paddle, paddlepress, payment, software-licensing, membership
 Requires at least: 5.0
 Tested up to: 6.8
 Requires PHP: 7.2.5
-Stable tag: 2.4.1
+Stable tag: 2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://handyplugins.co/donate/
@@ -46,7 +46,7 @@ Bug reports and pull requests are welcome on [Github](https://github.com/HandyPl
 __If you like this plugin, then consider checking out our other projects:__
 
 * <a href="https://handyplugins.co/magic-login-pro/" rel="friend">Magic Login Pro</a> – Easy, secure, and passwordless authentication for WordPress.
-* <a href="https://handyplugins.co/easy-text-to-speech/" rel="friend">Easy Text-to-Speech for WordPress</a> – Transform your textual content into high-quality synthesized speech with Amazon Polly.
+* <a href="https://handyplugins.co/easy-text-to-speech/" rel="friend">Easy Text-to-Speech for WordPress</a> – Transform your textual content into high-quality synthesized speech.
 * <a href="https://handyplugins.co/handywriter/" rel="friend">Handywriter</a> – AI-powered writing assistant that can help you create content for your WordPress.
 * <a href="https://handyplugins.co/wp-accessibility-toolkit/" rel="friend">WP Accessibility Toolkit</a> – A collection of tools to help you make your WordPress more accessible.
 * <a href="https://poweredcache.com/" rel="friend">Powered Cache</a> – Caching and Optimization for WordPress – Easily Improve PageSpeed & Web Vitals Score
@@ -95,6 +95,10 @@ You can pass a class attribute to the shortcode to customize the button. [Learn 
 3. Paddle Subscription Plans
 
 == Changelog ==
+
+= 2.5 (October 01, 2025) =
+* Improved: Fetch all prices. [Paddle Billing]
+* Updated: Dependencies.
 
 = 2.4.1 (March 31, 2025) =
 * Tested with WP 6.8
