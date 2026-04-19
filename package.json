@@ -1,6 +1,6 @@
 {
   "name": "handyplugins-paddlepress",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "description": "WordPress plugin for Paddle Integration",
   "author": {
     "name": "handyplugins",
@@ -31,7 +31,7 @@
     "url": "https://github.com/10up/plugin-scaffold"
   },
   "devDependencies": {
-    "10up-toolkit": "^6.5"
+    "10up-toolkit": "6.5.1"
   },
   "engines": {
     "node": ">=16"
